@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/src/assets/fonts/helvetica-light-587ebe5a59211.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'CustomFont', sans-serif;
+}
+
+
+span{
+    @apply text-[#333333] text-[14px] 
+}
+
+a{
+  @apply   text-xs  text-[13px]  
+}
+
+h1{
+    @apply     sm:text-4xl text-3xl text-[#333333]
+}
+
+h2{
+  @apply  sm:text-3xl text-2xl  text-[#333333]
+}
+h3{
+  @apply  sm:text-2xl text-xl  
+}
+h4{
+  @apply sm:text-xl text-base
+}
+h6{
+  @apply  font-semibold
+}
