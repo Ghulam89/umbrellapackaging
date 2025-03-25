@@ -4,55 +4,41 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import { Pagination, Autoplay } from 'swiper/modules';
-import icon1 from '../../assets/images/footer/dhl.png';
-import icon2 from '../../assets/images/footer/fedex.png';
+import partner1 from '../../assets/images/footer/partner1.png';
+import partner2 from '../../assets/images/footer/partner2.png';
+import partner3 from '../../assets/images/footer/partner3.png';
+import partner4 from '../../assets/images/footer/partner4.png';
 const Partners = () => {
 
     const data  = [
         {
             id:1,
-            icon:icon1,
+            icon:partner1,
             title:'No Minimum Order Qty',
             description:'Order as few as one custom unit to get started, with no minimum order quantity requirements.'
 
         },
          {
             id:2,
-            icon:icon2,
+            icon:partner2,
             title:'Free Design',
             description:'Avail professional design services without any added fees, ensuring your vision comes to life.'
 
         },
         {
             id:3,
-            icon:icon2,
+            icon:partner3,
             title:'Quickest Turnaround',
             description:'Avail professional design services without any added fees, ensuring your vision comes to life.'
 
         },
         {
             id:3,
-            icon:icon2,
+            icon:partner4,
             title:'Cheapest Prices',
             description:'Benefit from our regular discounted rates and get the best custom packaging at the lowest prices.'
 
-        },
-        {
-            id:4,
-            icon:icon2,
-            title:'Fee Shipping',
-            description:'Enjoy free shipping services for stock and custom orders of packaging boxes at Umbrella Packaging.'
-
-        },
-
-        {
-            id:3,
-            icon:icon2,
-            title:'Quickest Turnaround',
-            description:'Avail professional design services without any added fees, ensuring your vision comes to life.'
-
-        },
-
+        }
 
     ]
   return (
@@ -64,7 +50,7 @@ const Partners = () => {
 
 
         </h4>
-        <div className='rounded-lg p-3  h-28 flex justify-center items-center'>
+        <div className='rounded-lg p-3   pb-8 flex justify-center items-center'>
         <Swiper
         slidesPerView={1}
         spaceBetween={10}
@@ -81,11 +67,11 @@ const Partners = () => {
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 50,
           },
         }}
@@ -94,8 +80,8 @@ const Partners = () => {
       >
         {data?.map((item) => (
             <SwiperSlide key={item.id}>
-                <div className="text-center flex justify-center items-center">
-                <img src={item.icon} alt=""    className=' mx-auto w-28' />
+                <div className="text-center flex w-28 justify-center items-center">
+                <img src={item.icon} alt=""    className=' mx-auto  w-32' />
                
                 </div>
             </SwiperSlide>

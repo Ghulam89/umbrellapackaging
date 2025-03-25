@@ -14,8 +14,8 @@ const Hero = () => {
       <div className=" bg-[#B8B6FA99] flex sm:flex-row  flex-col  my-3.5 p-4 rounded-md w-full">
         <div className=" sm:w-7/12 w-full">
           <h1 className=" font-semibold">Umbrella Custom Packaging</h1>
-          <h2 className=" pt-1.5 text-[#4440E6]">Customize Everything Under This Umbrella</h2>
-          <div className=" flex     mt-7 gap-2 flex-wrap items-center">
+          <h3 className=" pt-1.5 text-[#4440E6]">Customize Everything Under This Umbrella</h3>
+          <div className=" flex  mt-7 gap-2 flex-wrap items-center">
             <Button
               label={"Apparel Boxes"}
               className="   py-1 font-medium border border-[#4440E6]"

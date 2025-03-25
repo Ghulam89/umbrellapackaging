@@ -5,12 +5,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { FaStar } from "react-icons/fa";
-import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import BlogCard from "../common/BlogCard";
-
-const Blog = () => {
+import Button from "../common/Button";
+import review from '../../assets/images/review.png';
+import { FaStar } from "react-icons/fa";
+const CustomerReviews = () => {
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -64,10 +64,12 @@ const Blog = () => {
   ];
 
   return (
-    <div className="py-12">
+    <div className="py-12  mt-10" style={{backgroundImage:`url(${review})`,backgroundPosition:'center',backgroundSize:'cover'}}>
       <div className=" sm:max-w-7xl max-w-[95%] mx-auto  text-center">
-        <h2 className=" pb-4 font-semibold">Blog & News</h2>
-        <div className="w-full  mx-auto">
+        <h2 className=" pb-3 font-semibold">Customer Reviews</h2>
+        <p className=" text-sm pb-5 text-gray-500">Share your true experience with us by writing a review below</p>
+        <Button label={'Write a Review'} className=" mx-auto bg-[#4440E6] mb-5 text-white" />
+        <div className="w-full  mx-auto relative">
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             autoplay={
@@ -83,23 +85,43 @@ const Blog = () => {
            slidesPerView="auto"
             breakpoints={{
               640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              768: { slidesPerView: 1},
+              1024: { slidesPerView:1},
             }}
           >
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id}>
-                <BlogCard data={testimonial} />
+                <div className="  max-w-6xl mx-auto">
+                   <ul className=" flex justify-center gap-1">
+                    <li>
+                    <FaStar size={20} color="#f0ad4e" />
+                    </li>
+                    <li>
+                    <FaStar size={20} color="#f0ad4e" />
+                    </li>
+                    <li>
+                    <FaStar size={20} color="#f0ad4e" />
+                    </li>
+                    <li>
+                    <FaStar size={20} color="#f0ad4e" />
+                    </li>
+                    <li>
+                    <FaStar size={20} color="#f0ad4e" />
+                    </li>
+                   </ul>
+                   <p className=" py-3 text-lg text-gray-500">Chris was extremely helpful throughout the whole process of design and the quality was great. Overall an honest company and a great experience. Would definitely recommend to anyone.</p>
+                   <h5 className=" font-semibold">Sara Zack</h5>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
 
           
-          <div className="flex  justify-center gap-3 items-center mt-8">
-            <button className="custom-prev w-12 h-12 bg-[#F6F6F6]  hover:bg-[#4440E6] hover:text-white  rounded-full flex items-center justify-center">
+          <div className="flex absolute top-0 z-40   w-full justify-between  gap-3 items-center">
+            <button className="custom-prev w-12 h-12 bg-[#F6F6F6] text-[#4440E6]  hover:bg-[#4440E6] hover:text-white  rounded-xl flex items-center justify-center">
               <IoIosArrowBack  size={25}  />
             </button>
-            <button className="custom-next w-12 h-12 bg-[#F6F6F6] hover:bg-[#4440E6] rounded-full hover:text-white flex items-center justify-center">
+            <button className="custom-next w-12 h-12 bg-[#F6F6F6] text-[#4440E6]  hover:bg-[#4440E6] hover:text-white  rounded-xl flex items-center justify-center">
               <IoIosArrowForward size={25} />
             </button>
           </div>
@@ -109,4 +131,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default CustomerReviews;

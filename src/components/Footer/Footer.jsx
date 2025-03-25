@@ -8,6 +8,7 @@ import trust from '../../assets/images/footer/trust-index.jpg';
 import trustpilot from '../../assets/images/footer/Trustpilot_logo.png';
 import sitejabber from '../../assets/images/footer/sitejabber.jpg';
 import  social from '../../assets/images/footer/bank-icons.webp';
+
 import Input from '../common/Input';
 import Button from '../common/Button';
 import Partners from './Partners';
@@ -67,7 +68,7 @@ const Footer = () => {
 
    
 
-    <div className=' sm:py-8 sm:gap-12  gap-7  py-4 grid md:grid-cols-5 grid-cols-2'>
+    <div className=' sm:pt-8 sm:gap-12  gap-7  pt-4 grid md:grid-cols-5 grid-cols-2'>
         <div className=' col-span-2'>
             <Partners/>
          <div className=' bg-white h-56  rounded-md flex   justify-center w-full items-center' >
