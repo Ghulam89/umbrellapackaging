@@ -52,27 +52,27 @@ const Hero = () => {
       <div className=" bg-[#B8B6FA99]  grid sm:grid-cols-6  grid-cols-2 my-3.5 mt-3 p-4 rounded-md w-full">
          <div className=" flex gap-1 items-center">
            <img src={Icon1}  width={30} alt="" />
-           <h6>Free Quote</h6>  
+           <h5>Free Quote</h5>  
         </div> 
         <div className=" flex gap-1 items-center">
            <img src={Icon2}  width={30} alt="" />
-           <h6>Free Design support</h6>  
+           <h5>Free Design support</h5>  
         </div> 
         <div className=" flex gap-1 items-center">
            <img src={Icon3}  width={30} alt="" />
-           <h6>Free Lamination</h6>  
+           <h5>Free Lamination</h5>  
         </div> 
         <div className=" flex gap-1 items-center">
            <img src={Icon4}  width={30} alt="" />
-           <h6>Free Shipping</h6>  
+           <h5>Free Shipping</h5>  
         </div> 
         <div className=" flex gap-1 items-center">
            <img src={Icon5}  width={30} alt="" />
-           <h6>FSC Certified</h6>  
+           <h5>FSC Certified</h5>  
         </div> 
         <div className=" flex gap-1 items-center">
            <img src={Icon6}  width={30} alt="" />
-           <h6>Quickest Turnaround</h6>  
+           <h5>Quickest Turnaround</h5>  
         </div> 
       </div>
     </div>

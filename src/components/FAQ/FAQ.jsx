@@ -75,7 +75,7 @@ const FAQ = () => {
 
   return (
     <div  style={{backgroundImage:`url(${'https://umbrellapackaging.com/wp-content/uploads/2024/01/1.png'})`}} className="">
-      <div className="   sm:max-w-7xl max-w-[95%] mx-auto">
+      <div className="   sm:max-w-6xl max-w-[95%] mx-auto">
       <div  className="">
       <div className=" text-center">
        

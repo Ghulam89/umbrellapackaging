@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="sm:max-w-6xl max-w-[95%] mx-auto">
         <div className="flex space-x-5 w-full justify-between h-20 items-center">
           <div>
-            <img src={logo} alt="" className="w-[140px]" />
+            <img src={logo} alt="" className="sm:w-[135px] w-[300px]" />
           </div>
           <div className="w-xl">
             <Input

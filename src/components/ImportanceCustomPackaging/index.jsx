@@ -6,8 +6,8 @@ const ImportanceCustomPackaging = () => {
   return (
     <div className="py-8 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className=' text-center pb-6'>
-            <h1 className=' flex justify-center gap-1'>What Is Custom Packaging? <p className=' m-0 text-[#4440E6]'>A Complete Guide  </p></h1>
+        <div className=' text-center sm:pb-6 pb-3'>
+            <h1 className=' flex sm:flex-row flex-col justify-center gap-1'>What Is Custom Packaging? <p className=' m-0 text-[#4440E6]'>A Complete Guide  </p></h1>
         </div>
         <div className="flex flex-col lg:flex-row gap-8 items-center">
           {/* Text Content */}

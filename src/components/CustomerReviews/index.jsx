@@ -10,7 +10,9 @@ import BlogCard from "../common/BlogCard";
 import Button from "../common/Button";
 import review from '../../assets/images/review.png';
 import { FaStar } from "react-icons/fa";
+import AddReviews from "./AddReviews";
 const CustomerReviews = () => {
+  const [openModal,setOpenModal] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -64,12 +66,14 @@ const CustomerReviews = () => {
   ];
 
   return (
-    <div className="py-12  mt-10" style={{backgroundImage:`url(${review})`,backgroundPosition:'center',backgroundSize:'cover'}}>
+    <div className="py-12 " style={{backgroundImage:`url(${review})`,backgroundPosition:'center',backgroundSize:'cover'}}>
       <div className=" sm:max-w-7xl max-w-[95%] mx-auto  text-center">
+
         <h2 className=" pb-3 font-semibold">Customer Reviews</h2>
         <p className=" text-sm pb-5 text-gray-500">Share your true experience with us by writing a review below</p>
-        <Button label={'Write a Review'} className=" mx-auto bg-[#4440E6] mb-5 text-white" />
+        <Button onClick={()=>setOpenModal(true)} label={'Write a Review'} className=" mx-auto bg-[#4440E6] mb-5 text-white" />
         <div className="w-full  mx-auto relative">
+       
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             autoplay={
@@ -127,6 +131,8 @@ const CustomerReviews = () => {
           </div>
         </div>
       </div>
+      
+      <AddReviews isModalOpen={openModal} setIsModalOpen={setOpenModal} />
     </div>
   );
 };

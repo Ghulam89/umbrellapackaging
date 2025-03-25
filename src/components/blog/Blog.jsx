@@ -65,7 +65,7 @@ const Blog = () => {
 
   return (
     <div className="py-12">
-      <div className=" sm:max-w-7xl max-w-[95%] mx-auto  text-center">
+      <div className=" sm:max-w-6xl max-w-[95%] mx-auto  text-center">
         <h2 className=" pb-4 font-semibold">Blog & News</h2>
         <div className="w-full  mx-auto">
           <Swiper

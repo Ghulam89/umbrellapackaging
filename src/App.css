@@ -22,11 +22,11 @@ a{
 }
 
 h1{
-    @apply     sm:text-4xl text-3xl text-[#333333]
+    @apply     sm:text-4xl text-2xl text-[#333333]
 }
 
 h2{
-  @apply  sm:text-3xl text-2xl  text-[#333333]
+  @apply  sm:text-3xl text-xl  text-[#333333]
 }
 h3{
   @apply  sm:text-2xl text-xl  

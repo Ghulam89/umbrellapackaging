@@ -40,7 +40,7 @@ function WeFulfil() {
                 "Free Lamination"
               ].map((item, index) => (
                 <div key={index} className='flex items-center space-x-2 group'>
-                  <FaCircleNotch className='text-xs group-hover:scale-125 transition-transform' />
+                  <FaCircleNotch className=' group-hover:scale-125 transition-transform' />
                   <span className='text-sm md:text-[16px]'>{item}</span>
                 </div>
               ))}
@@ -59,7 +59,7 @@ function WeFulfil() {
                 "Fast Customer Service"
               ].map((item, index) => (
                 <div key={index} className='flex items-center space-x-2 group'>
-                  <FaCircleNotch className='text-xs group-hover:scale-125 transition-transform' />
+                  <FaCircleNotch className=' group-hover:scale-125 transition-transform' />
                   <span className='text-sm md:text-[16px]'>{item}</span>
                 </div>
               ))}

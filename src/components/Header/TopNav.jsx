@@ -17,7 +17,7 @@ const TopNav = () => {
   return (
     <div className=" bg-[#F7F7F7]">
       <div className="sm:max-w-6xl max-w-[95%] mx-auto">
-        <div className="flex sm:justify-between justify-center flex-wrap items-center px-6 py-4 border-b border-gray-200 text-sm text-gray-700">
+        <div className="flex sm:justify-between justify-center flex-wrap items-center px-6 sm:py-4 py-2 border-b border-gray-200 text-sm text-gray-700">
           {/* Left Side: Country Flags */}
           <div className="flex items-center space-x-4">
             <div className="flex items-center  space-x-1.5">

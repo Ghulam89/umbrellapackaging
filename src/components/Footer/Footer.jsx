@@ -14,9 +14,9 @@ import Button from '../common/Button';
 import Partners from './Partners';
 const Footer = () => {
   return (
-    <div className=' bg-[#F7F7F7]'>
+    <div className=' bg-[#F7F7F7] pt-4'>
 
-    <div className=' sm:max-w-7xl max-w-[95%] mx-auto'>
+    <div className=' sm:max-w-6xl max-w-[95%] mx-auto'>
     <div  className=''>
      <div  className=' flex sm:flex-row   flex-col border-b gap-1.5 border-gray-500 justify-between pb-10 sm:pt-10 pt-0'>
         <div className=' sm:w-4/12 w-12/12'>
@@ -64,10 +64,7 @@ const Footer = () => {
         <div>
             
         </div>
-    </div>  
-
-   
-
+    </div> 
     <div className=' sm:pt-8 sm:gap-12  gap-7  pt-4 grid md:grid-cols-5 grid-cols-2'>
         <div className=' col-span-2'>
             <Partners/>
@@ -176,8 +173,8 @@ const Footer = () => {
             <div  className=' sm:w-4/12 w-full'>
               <label className=''>Get More Update Join Our Newsletters:</label> 
 
-              <div className=' pt-3 flex gap-1'>
-                <Input placeholder={'Enter Your Email Here'} className={' border border-black bg-white placeholder:text-gray-600'} />
+              <div className=' pt-3 flex  sm:flex-row flex-col gap-3'>
+                <Input placeholder={'Enter Your Email Here'} className={' border border-black w-full py-1.5 rounded-sm bg-white placeholder:text-gray-600'} />
                 <Button label={'Submit'}  className=' text-white rounded-md bg-[#4440E6]' />
                 </div>  
             </div>
