@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../common/Button";
 import Hero1 from "../../assets/images/web-banner.webp";
 import Icon1 from '../../assets/images/icon/free quote.svg';
@@ -8,7 +8,9 @@ import Icon2 from '../../assets/images/icon/Free Lamination.svg';
 import Icon4 from '../../assets/images/icon/free shipping.svg';
 import Icon5 from '../../assets/images/icon/FSC Certified.svg';
 import Icon6 from '../../assets/images/icon/Quickest Turnaround.svg';
+import InstantQuoteModal from "../common/InstantQuoteModal";
 const Hero = () => {
+  const [isModalOpen,setIsModalOpen] = useState(false);
   return (
     <div className="   sm:max-w-6xl max-w-[95%] mx-auto">
       <div className=" bg-[#B8B6FA99] flex sm:flex-row  flex-col  my-3.5 p-4 rounded-md w-full">
@@ -31,7 +33,8 @@ const Hero = () => {
           </div>
           <div className=" flex flex-wrap   mt-7 gap-2.5 items-center">
             <Button
-              label={"Cardboard Boxes"}
+               onClick={()=>setIsModalOpen(true)}
+              label={"Get Instant Quote"}
               className=" bg-[#4440E6] text-white"
             />
             <Button
@@ -75,6 +78,8 @@ const Hero = () => {
            <h5>Quickest Turnaround</h5>  
         </div> 
       </div>
+
+      <InstantQuoteModal  setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
     </div>
   );
 };

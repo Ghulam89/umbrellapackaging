@@ -72,7 +72,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
               className="relative group"
             >
               <Link
-                to="#"
+                to={`/main-category/${category?.category}`}
                 className="flex items-center gap-1  uppercase py-2.5 text-sm font-normal transition-colors"
               >
                 {category.category}
@@ -116,7 +116,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                 {selectedCategory.map((submenu, index) => (
                   <Link
                     key={index}
-                    to={`/sub-category/${submenu.title}`}
+                    to={`/category/${submenu.title}`}
                     className="text-sm text-gray-700 flex uppercase gap-0.5 items-center transition-colors"
                   >
                     <img src={submenu?.icon} alt="" className="w-7" />{" "}
@@ -140,7 +140,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
           {categories.map((category, index) => (
             <li key={index}>
               <Link
-                to="#"
+                to={`/main-category/${category?.category}`}
                 className="flex items-center gap-1 py-2.5 text-sm font-normal transition-colors"
                 onClick={OpenMenu}
               >
@@ -154,7 +154,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                   {category.menu.map((submenu, subIndex) => (
                     <li key={subIndex}>
                       <Link
-                        to={`/sub-category/${submenu.title}`}
+                        to={`/category/${submenu.title}`}
                         className="text-sm text-gray-700 flex gap-0.5 items-center transition-colors"
                         onClick={OpenMenu}
                       >

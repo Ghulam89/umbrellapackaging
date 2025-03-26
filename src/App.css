@@ -13,6 +13,10 @@ body {
 }
 
 
+p{
+  @apply text-[#888] text-sm
+}
+
 span{
     @apply text-[#333333] text-[14px] 
 }
