@@ -3,6 +3,7 @@ import logo from "../../assets/images/umbrella-logo.svg";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import BottomNav from "./BottomNav";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -15,9 +16,9 @@ const Navbar = () => {
     <div className="bg-[#F7F7F7] sm:pb-2.5 pb-0">
       <div className="sm:max-w-6xl max-w-[95%] mx-auto">
         <div className="flex space-x-5 w-full justify-between h-20 items-center">
-          <div>
+          <Link to={`/`}>
             <img src={logo} alt="" className="sm:w-[135px] w-[300px]" />
-          </div>
+          </Link>
           <div className="w-xl">
             <Input
               placeholder={"Search For Products"}
