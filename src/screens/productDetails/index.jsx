@@ -537,7 +537,7 @@ const ProductDetails = ({
             <section>
               <div className=' sm:max-w-6xl bg-[#F7F7F7] p-3 rounded-xl mb-8 max-w-[95%] mx-auto'>
               <div className="my-10">
-        <Tabs defaultTab={"Rigid Boxes"} tabs={customBox} />
+        <Tabs defaultTab={"Description"} tabs={customBox} />
       </div>
               </div>
             </section>
