@@ -121,11 +121,10 @@ const Shop = () => {
                     <span className="font-semibold"> png, pdf, jpg, jpeg, webp</span>
                   </p>
                 </label>
-                <input 
-                  id="design_upload"
-                  className="w-full p-2.5 bg-white rounded-lg text-xs md:text-sm border border-[#333333] mt-2"
-                  type="file" 
-                />
+                <Input
+          type='file'
+          className='border w-full rounded-lg bg-white border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#4440E6] file:text-white hover:file:bg-[#3a36c7]'
+        />
                         </div>
                          <div>
                             <Button label={' Send'} className=' w-full  bg-[#4440E6] text-white' />
