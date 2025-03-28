@@ -93,6 +93,9 @@ const Footer = () => {
                     <Link to={'#'} className='  text-[#2e2d2d]'>Home</Link>
                 </li>
                 <li>
+                    <Link to={'/shop'} className='  text-[#2e2d2d]'>Shop</Link>
+                </li>
+                <li>
                     <Link to={'#'} className='  text-[#2e2d2d]'>Get A Quote</Link>
                 </li>
                 <li>
