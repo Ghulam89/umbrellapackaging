@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import Home from './screens/home'
 import CategoryProducts from './screens/categoryProducts'
@@ -8,7 +8,15 @@ import TopNav from './components/Header/TopNav'
 import MainCategoryProducts from './screens/MainCategoryProducts'
 import ProductDetails from './screens/productDetails'
 import Shop from './screens/shop'
+import { useEffect } from 'react'
 function App() {
+
+  const { pathname } = useLocation();
+  
+      useEffect(() => {
+          window.scrollTo(0, 0);
+      }, [pathname]);
+
   return (
     <>
      <TopNav/>
