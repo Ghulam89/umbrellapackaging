@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import Input from '../../components/common/Input'
 import Button from '../../components/common/Button'
-import { IoHomeOutline } from 'react-icons/io5'
-import { LiaAngleRightSolid } from 'react-icons/lia'
 import CustomPackagingProduced from '../../components/CustomPackagingProduced'
 import Container from '../../components/common/Container'
 import CardSlider from '../../components/common/CardSlider'
 import Tabs from '../../components/common/Tabs'
-import ProductDetail from '../../../../x-packaging/src/components/common/ProductDetail'
 import FAQ from '../../components/FAQ/FAQ'
 import CustomPackagingApart from '../../components/CustomPackagingApart/CustomPackagingApart'
-import { GoSearch } from 'react-icons/go'
 
 const ProductDetails = ({
     children: slides,
