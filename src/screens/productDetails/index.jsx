@@ -325,7 +325,7 @@ const ProductDetails = ({
                         <div className='w-full'>
                             <div className="overflow-hidden relative">
                                 <div
-                                    className="flex relative transition-transform ease-out duration-500 sm:h-[80vh] h-[60vh]"
+                                    className="flex relative transition-transform ease-out duration-500"
                                     style={{ transform: `translateX(-${curr * 100}%)` }}
                                 >
                                     {images.map((image, i) => (
