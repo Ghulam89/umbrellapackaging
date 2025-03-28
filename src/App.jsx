@@ -9,6 +9,7 @@ import MainCategoryProducts from './screens/MainCategoryProducts'
 import ProductDetails from './screens/productDetails'
 import Shop from './screens/shop'
 import { useEffect } from 'react'
+import ContactUs from './screens/ContactUs/ContactUs'
 function App() {
 
   const { pathname } = useLocation();
@@ -27,6 +28,7 @@ function App() {
       <Route  path='/category/:id' element={<CategoryProducts/>} />
       <Route  path='/product/:id' element={<ProductDetails/>} />
       <Route  path='/shop' element={<Shop/>} />
+      <Route  path='/contact-us' element={<ContactUs/>} />
     </Routes>
     <Footer/>
     </>

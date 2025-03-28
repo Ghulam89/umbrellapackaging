@@ -8,7 +8,6 @@ import CardSlider from '../../components/common/CardSlider'
 import Tabs from '../../components/common/Tabs'
 import FAQ from '../../components/FAQ/FAQ'
 import CustomPackagingApart from '../../components/CustomPackagingApart/CustomPackagingApart'
-
 const ProductDetails = ({
     children: slides,
     autoSlide = false,
@@ -326,7 +325,7 @@ const ProductDetails = ({
                         <div className='w-full'>
                             <div className="overflow-hidden relative">
                                 <div
-                                    className="flex relative transition-transform ease-out duration-500 h-[80vh]"
+                                    className="flex relative transition-transform ease-out duration-500 sm:h-[80vh] h-[60vh]"
                                     style={{ transform: `translateX(-${curr * 100}%)` }}
                                 >
                                     {images.map((image, i) => (
@@ -345,13 +344,13 @@ const ProductDetails = ({
                                  
                                 <button
                                     onClick={prev}
-                                    className="w-12 h-12 shadow rounded-full cursor-pointer absolute left-5 top-56 flex justify-center items-center bg-white/80 text-gray-800 hover:bg-white"
+                                    className="w-12 h-12 shadow rounded-full cursor-pointer absolute left-5 sm:top-56 top-40 flex justify-center items-center bg-white/80 text-gray-800 hover:bg-white"
                                 >
                                     <TfiAngleLeft size={20} className="" />
                                 </button>
                                 <button
                                     onClick={next}
-                                    className="w-12 h-12 rounded-full absolute cursor-pointer right-5 top-56 flex justify-center items-center shadow bg-white/80 text-gray-800 hover:bg-white"
+                                    className="w-12 h-12 rounded-full absolute cursor-pointer right-5 sm:top-56 top-40 flex justify-center items-center shadow bg-white/80 text-gray-800 hover:bg-white"
                                 >
                                     <TfiAngleRight size={20} />
                                 </button>
@@ -496,7 +495,7 @@ const ProductDetails = ({
                                         className={"w-full border rounded-lg bg-white"}
                                     />
                                 </div>
-                                <div className="col-span-5">
+                                <div className="sm:col-span-5 col-span-2">
                                     <label
                                         htmlFor="first_name"
                                         className="pb-1.5 text-[#333333] text-sm font-medium text-textColor"
@@ -506,7 +505,7 @@ const ProductDetails = ({
                                     </label>
                                     <input placeholder="" className="p-2.5 bg-white rounded-lg text-sm mt-2" type="file" />
                                 </div>
-                                <div className="col-span-5">
+                                <div className="sm:col-span-5 col-span-2">
                                     <label
                                         htmlFor="first_name"
                                         className="pb-1.5 flex text-sm font-medium text-textColor"
