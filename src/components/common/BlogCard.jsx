@@ -5,10 +5,10 @@ import Button from "./Button";
 const BlogCard = ({data}) => {
   return (
     <>
-    <div className=" w-96">
+    <div className=" ">
     <Link to={data?.id} className="">
         <div className="">
-          <div className="  sm:h-32 h-32">
+          <div className="  w-full sm:h-32 h-32">
           <img src={data?.image} alt="" className=" w-full h-full object-center object-cover" />
           </div>
           <div className=" h-64 shadow border p-2 border-t-0  border-gray-100">

@@ -145,19 +145,19 @@ const Footer = () => {
                     <Link to={'#'} className='  text-[#2e2d2d]'>About us</Link>
                 </li>
                 <li>
-                    <Link to={'#'} className='  text-[#2e2d2d]'>Privacy Policy</Link>
+                    <Link to={'/privacy-policy'} className='  text-[#2e2d2d]'>Privacy Policy</Link>
                 </li>
                 <li>
-                    <Link to={'#'} className='  text-[#2e2d2d]'>Terms And Conditions</Link>
+                    <Link to={'/termsandconditions'} className='  text-[#2e2d2d]'>Terms And Conditions</Link>
                 </li>
                 <li>
                     <Link to={'#'} className='  text-[#2e2d2d]'>RETURNS & REFUNDS</Link>
                 </li>
                 <li>
-                    <Link to={'#'} className='  text-[#2e2d2d]'>Shipping Policy</Link>
+                    <Link to={'/shipping-policy'} className='  text-[#2e2d2d]'>Shipping Policy</Link>
                 </li>
                 <li>
-                    <Link to={'#'} className='  text-[#2e2d2d]'>Blog</Link>
+                    <Link to={'/blogs'} className='  text-[#2e2d2d]'>Blog</Link>
                 </li>
                 <li>
                     <Link to={'#'} className='  text-[#2e2d2d] '>FAQs</Link>
