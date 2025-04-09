@@ -18,9 +18,7 @@ import Checkout from './screens/checkout/Checkout'
 import Blogs from './screens/blogs/Blogs'
 import ShippingPolicy from './screens/shippingPolicy/ShippingPolicy'
 function App() {
-
   const { pathname } = useLocation();
-  
       useEffect(() => {
           window.scrollTo(0, 0);
       }, [pathname]);
