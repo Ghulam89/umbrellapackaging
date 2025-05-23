@@ -13,7 +13,7 @@ const Modal = ({ isOpen, onClose, children,className }) => {
 
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <div className={`inline-block align-bottom bg-white  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full ${className} `}>
+            <div className={`inline-block align-bottom bg-white  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  ${className} `}>
               {children}
             </div>
           </div>

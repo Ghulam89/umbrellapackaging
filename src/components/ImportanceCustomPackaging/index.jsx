@@ -1,8 +1,54 @@
-import React from 'react';
-import video from '../../assets/images/thumbnail-for-umbrella.webp';
-import { FaRegCirclePlay } from 'react-icons/fa6';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { BaseUrl } from '../../utils/BaseUrl';
 
 const ImportanceCustomPackaging = () => {
+  const [banner, setBannner] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+  const closeImageViewer = () => {
+    setIsViewerOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const openImageViewer = (image, index) => {
+    setSelectedImage(image);
+    setCurrentIndex(index);
+    setIsViewerOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const fetchBanner = async () => {
+    try {
+      const respose = await axios.get(`${BaseUrl}/banner/getAll`);
+      console.log(respose);
+      const data = respose?.data?.data?.[0] || {};
+      setBannner(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  const getEmbedUrl = (url) => {
+    if (!url) return '';
+    
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    
+    const videoId = (match && match[2].length === 11) ? match[2] : null;
+    
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    }
+    return url;
+  };
+
+  useEffect(() => {
+    fetchBanner();
+  }, []);
   return (
     <div className="py-8 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -11,77 +57,21 @@ const ImportanceCustomPackaging = () => {
         </div>
         <div className="flex flex-col lg:flex-row gap-8 items-center">
           {/* Text Content */}
-          <div className="w-full lg:w-1/2 bg-gray-50 h-[430px] pt-4 overflow-y-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-              Importance of Custom Packaging
-            </h2>
-            <p className="text-sm text-gray-600 mb-6">
-              Here is how custom printed packaging works, explained simply:
-            </p>
-            
-            <p className="text-base text-gray-700 mb-6">
-              Custom packaging is important because it helps keep products safe and makes them look good. 
-              When businesses pack items in special boxes or bags that fit them just right, they prevent 
-              damage during shipping.
-            </p>
-            
-            <ul className="space-y-4">
-              <li className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Protection of Products</h3>
-                <p className="text-gray-700 text-sm">
-                  Custom packaging helps keep products safe during shipping and handling. When businesses 
-                  pack items in specially designed boxes or bags that fit them just right, they prevent damage.
-                </p>
-              </li>
-              
-              <li className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Branding</h3>
-                <p className="text-gray-700 text-sm">
-                  Custom packaging is very important in branding because it helps a product stand out and 
-                  tells customers more about the brand. When packaging is designed specifically for a product, 
-                  it reflects the brand's identity, values, and personality.
-                </p>
-              </li>
-              
-              <li className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Eye-Catching Design</h3>
-                <p className="text-gray-700 text-sm">
-                  Customized packaging printing allows companies to display their brand. A box with bright 
-                  colors and a cool design can grab people's attention and make them want to buy the product.
-                </p>
-              </li>
-              
-              <li className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Eco-Friendly Options</h3>
-                <p className="text-gray-700 text-sm">
-                  Many companies now use eco-friendly materials for their packaging, which is better for 
-                  the environment. This helps reduce waste and shows customers that the brand cares about 
-                  the environment.
-                </p>
-              </li>
-              
-              <li className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Creating a Memorable Experience</h3>
-                <p className="text-gray-700 text-sm">
-                  Printed box packaging can make opening a product feel special. A beautifully designed box 
-                  adds excitement and joy to the experience, which can make customers more likely to buy 
-                  from the brand again.
-                </p>
-              </li>
-            </ul>
+          <div dangerouslySetInnerHTML={{ __html: banner?.description}} className="w-full lg:w-1/2 bg-gray-50 h-[430px] pt-4 overflow-y-auto">
+             
           </div>
           
           {/* Image */}
          {/* Fixed version */}
 <div className="w-full relative lg:w-1/2">
   <img 
-    src={video} 
+    src={`${BaseUrl}/${banner?.image}`} 
     alt="Custom packaging example" 
     className="w-full h-auto rounded-xl shadow-md object-cover"
     loading="lazy"
   />
 
-  <div className='absolute border-[#FF931E] text-[#FF931E] p-5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-4 rounded-full cursor-pointer'>
+  <div onClick={()=>openImageViewer(banner?.Link)} className='absolute border-[#FF931E] text-[#FF931E] p-5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-4 rounded-full cursor-pointer'>
     <svg width={60} className='fill-current' viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
       <path d="M371.7 238l-176-107c-15.8-8.8-35.7 2.5-35.7 21v208c0 18.4 19.8 29.8 35.7 21l176-101c16.4-9.1 16.4-32.8 0-42zM504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256z"></path>
     </svg>
@@ -89,6 +79,33 @@ const ImportanceCustomPackaging = () => {
 </div>
         </div>
       </div>
+
+      {isViewerOpen && banner?.videoLink && (
+        <div className="fixed inset-0 bg-[rgba(0,0,0,0.8)] bg-opacity-90 z-50 flex items-center justify-center p-4">
+          <div className='absolute top-4 right-4'>
+            <button
+              onClick={closeImageViewer}
+              className="text-white text-3xl   cursor-pointer hover:text-gray-300"
+            >
+              &times;
+            </button>
+          </div>
+
+          <div className="w-full max-w-8xl aspect-video">
+            <iframe
+              width="100%"
+              height="100%"
+              src={banner?.videoLink}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

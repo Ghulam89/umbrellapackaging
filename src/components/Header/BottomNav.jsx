@@ -1,52 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAngleDown, FaBed } from "react-icons/fa";
-import { MdOutdoorGrill } from "react-icons/md";
-import { TbToolsKitchen3 } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import icon1 from "../../assets/images/BOXES BY INDUSTRY/Automotive-Boxes.webp";
-
+import axios from "axios";
+import { BaseUrl } from "../../utils/BaseUrl";
 const BottomNav = ({ Menu, OpenMenu }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [allCategories, setAllCategories] = useState([])
+  const fetchCategories = async () => {
+  const response = await axios.get(`${BaseUrl}/brands/getAll`)
+    console.log(response);
+    setAllCategories(response?.data?.data)
+  }
 
-  const categories = [
-    {
-      category: "Box by industry",
-      icon: <FaBed />,
-      menu: [
-        { title: "Automotive Boxes", icon: icon1 },
-        { title: "Apparel Boxes", icon: icon1 },
-        { title: "Beverage Boxes", icon: icon1 },
-        { title: "Bakery Boxes", icon: icon1 },
-        { title: "Candy Boxes", icon: icon1 },
-        { title: "Cosmetic Boxes", icon: icon1 },
-        { title: "Coffee Boxes", icon: icon1 },
-        { title: "CBD Boxes", icon: icon1 },
-        { title: "Dispenser boxes", icon: icon1 },
-        { title: "Face mask boxes", icon: icon1 },
-        { title: "Fries Boxes​", icon: icon1 },
-      ],
-    },
-    {
-      category: "Shapes & styles",
-      icon: <MdOutdoorGrill />,
-      menu: [{ title: "Outdoor Furniture" }],
-    },
-    {
-      category: "Materials",
-      icon: <TbToolsKitchen3 />,
-      menu: [{ title: "Kitchenware" }],
-    },
-    {
-      category: "Sticker labels & others",
-      icon: <TbToolsKitchen3 />,
-      menu: [{ title: "Kitchenware" }],
-    },
-  ];
+  useEffect(() => {
+    fetchCategories();
+  }, [])
+
+  
 
   const handleCategoryHover = (category) => {
     setHoveredCategory(category);
-    setSelectedCategory(category.menu);
+    setSelectedCategory(category.midcategories
+    );
   };
 
   const handleCategoryLeave = () => {
@@ -58,13 +34,13 @@ const BottomNav = ({ Menu, OpenMenu }) => {
     <div className="relative">
       {/* Desktop Menu */}
       <div className="sm:block hidden py-2">
-        <ul className="flex justify-between items-center max-w-7xl mx-auto px-4">
+        <ul className="flex justify-between items-center max-w-8xl mx-auto px-4">
           <li>
             <Link to="/" className="transition-colors">
               HOME
             </Link>
           </li>
-          {categories.map((category, index) => (
+          {allCategories.map((category, index) => (
             <li
               key={index}
               onMouseEnter={() => handleCategoryHover(category)}
@@ -72,11 +48,12 @@ const BottomNav = ({ Menu, OpenMenu }) => {
               className="relative group"
             >
               <Link
-                to={`/main-category/${category?.category}`}
+                onClick={handleCategoryLeave}
+                to={`/main-category/${category?._id}`}
                 className="flex items-center gap-1  uppercase py-2.5 text-sm font-normal transition-colors"
               >
-                {category.category}
-                {category.menu?.length > 0 && (
+                {category.name}
+                {category.midcategories?.length > 0 && (
                   <FaAngleDown className="ml-1" size={15} />
                 )}
               </Link>
@@ -88,7 +65,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
             </Link>
           </li>
           <li>
-            <Link to="/blog" className="hover:text-orange-500 uppercase transition-colors">
+            <Link to="/blogs" className="hover:text-orange-500 uppercase transition-colors">
               Blog
             </Link>
           </li>
@@ -107,19 +84,20 @@ const BottomNav = ({ Menu, OpenMenu }) => {
         {/* Dropdown Menu */}
         {hoveredCategory && selectedCategory && (
           <div
-            className="absolute top-12 pt-2.5 left-0 w-full z-50"
+            className="absolute top-12 pt-1.5 left-0 w-full z-50"
             onMouseEnter={() => handleCategoryHover(hoveredCategory)}
             onMouseLeave={handleCategoryLeave}
           >
             <div className="bg-[#F7F7F7] mt-5">
-              <div className="max-w-7xl mx-auto px-4 py-3 grid grid-cols-4 gap-4">
+              <div className="max-w-8xl mx-auto px-4 py-3 grid grid-cols-4 gap-4">
                 {selectedCategory.map((submenu, index) => (
                   <Link
+                    onClick={handleCategoryLeave}
                     key={index}
-                    to={`/category/${submenu.title}`}
-                    className="text-sm text-gray-700 flex uppercase gap-0.5 items-center transition-colors"
+                    to={`/category/${submenu._id}`}
+                    className=" text-gray-700 flex font-semibold  capitalize gap-1 items-center transition-colors"
                   >
-                    <img src={submenu?.icon} alt="" className="w-7" />{" "}
+                    <img src={`${BaseUrl}/${submenu?.icon}`} alt="" className="w-8" />{" "}
                     {submenu.title}
                   </Link>
                 ))}
@@ -137,10 +115,10 @@ const BottomNav = ({ Menu, OpenMenu }) => {
               HOME
             </Link>
           </li>
-          {categories.map((category, index) => (
+          {allCategories?.map((category, index) => (
             <li key={index}>
               <Link
-                to={`/main-category/${category?.category}`}
+                to={`/main-category/${category?._id}`}
                 className="flex items-center gap-1 py-2.5 text-sm font-normal transition-colors"
                 onClick={OpenMenu}
               >
@@ -149,16 +127,16 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                   <FaAngleDown className="ml-1" size={15} />
                 )}
               </Link>
-              {category.menu?.length > 0 && (
+              {category.midcategories?.length > 0 && (
                 <ul className="pl-4">
-                  {category.menu.map((submenu, subIndex) => (
+                  {category.midcategories.map((submenu, subIndex) => (
                     <li key={subIndex}>
                       <Link
-                        to={`/category/${submenu.title}`}
+                        to={`/category/${submenu._id}`}
                         className="text-sm text-gray-700 flex gap-0.5 items-center transition-colors"
                         onClick={OpenMenu}
                       >
-                        <img src={submenu?.icon} alt="" className="w-7" />{" "}
+                        <img src={`${BaseUrl}/${submenu?.icon}`} alt="" className="w-7" />
                         {submenu.title}
                       </Link>
                     </li>

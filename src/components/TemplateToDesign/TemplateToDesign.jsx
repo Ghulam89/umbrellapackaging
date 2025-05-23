@@ -5,7 +5,7 @@ import TemplateSlider from "../common/TemplateSlider";
 const TemplateToDesign = () => {
   return (
     <>
-      <div className="sm:max-w-6xl  mb-3.5 max-w-[95%] mx-auto">
+      <div className="sm:max-w-7xl  mb-3.5 max-w-[95%] mx-auto">
         <div className=" flex gap-4 sm:flex-row items-center flex-col justify-between">
           <div className="  sm:w-6/12 w-full">
             <h1>Need Box Template to design?</h1>

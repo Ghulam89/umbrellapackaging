@@ -1,197 +1,339 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomPackagingProduced from '../../components/CustomPackagingProduced'
 import Button from '../../components/common/Button'
 import { Link } from 'react-router-dom'
 import ProductCard from '../../components/common/ProductCard'
 import Input from '../../components/common/Input'
+import { BaseUrl } from '../../utils/BaseUrl'
+import axios from 'axios'
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 const Shop = () => {
-    const data = [
-        {
-          id: 1,
-          
-          title:
-            "Cardboard Chocolate Boxes",
-    
-            desc:"The finish of printed materials makes a big difference, ...and it can turly affect how people see your ",
-          
-          image: "https://umbrellapackaging.com/wp-content/uploads/2024/04/cardboard-chocolate-boxes.webp",
-        },
-        {
-          id: 2,
-          
-          title:
-            "Chocolate Bomb Boxes",
-    
-            desc:"The finish of printed materials makes a big difference, ...and it can turly affect how people see your ",
-          
-          image: "https://umbrellapackaging.com/wp-content/uploads/2024/04/chocolate-bomb-boxes.webp",
-        },
-        {
-          id: 3,
-          
-          title:
-            "Small Chocolate Boxes ",
-    
-            desc:"The finish of printed materials makes a big difference, ...and it can turly affect how people see your ",
-          
-          image: "https://umbrellapackaging.com/wp-content/uploads/2024/04/Small-Chocolate-Boxes.webp",
-        },
-        {
-          id: 4,
-          title:
-            "I am very happy to use this VPN,",
-            desc:"The finish of printed materials makes a big difference, ...and it can turly affect how people see your ",
-          image: "https://umbrellapackaging.com/wp-content/uploads/2024/04/auto-airspring-boxes.webp",
-        },
-        {
-            id: 4,
-            title:
-              " I am very happy to use this VPN",
-              desc:"The finish of printed materials makes a big difference, ...and it can turly affect how people see your ",
-            image: "https://umbrellapackaging.com/wp-content/uploads/2024/04/auto-airspring-boxes.webp",
+
+  const [products, setProducts] = useState([])
+  const fetchProducts = async () => {
+    const response = await axios.get(`${BaseUrl}/products/getAll`)
+    setProducts(response?.data?.data)
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
+
+
+   const validationSchema = Yup.object().shape({
+      name: Yup.string().required("Name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      // phoneNumber: Yup.string()
+      //   .matches(/^[0-9]+$/, "Must be only digits")
+      //   .min(10, "Must be at least 10 digits")
+      //   .required("Phone number is required"),
+      // message: Yup.string().required("Message is required"),
+      // image: Yup.mixed()
+      //   .required("Image is required")
+      //   .test(
+      //     "fileSize",
+      //     "File too large (max 5MB)",
+      //     (value) => value && value.size <= 5 * 1024 * 1024
+      //   )
+      //   .test(
+      //     "fileType",
+      //     "Unsupported file format",
+      //     (value) =>
+      //       value &&
+      //       ["image/png", "image/jpeg", "image/jpg", "image/webp", "application/pdf"].includes(
+      //         value.type
+      //       )
+      //   ),
+    });
+  
+    const formik = useFormik({
+      initialValues: {
+        name: "",
+        email: "",
+        phoneNumber: "",
+        message: "",
+        image: null,
+      },
+      validationSchema,
+      onSubmit: async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(true)
+        try {
+          const formData = new FormData();
+          formData.append("name", values.name);
+          formData.append("email", values.email);
+          formData.append("phoneNumber", values.phoneNumber);
+          formData.append("message", values.message);
+          formData.append("image", values.image);
+  
+          const response = await axios.post(`${BaseUrl}/instantQuote/create`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+  
+          if(response?.data?.status==="success"){
+           toast.success(response?.data?.message)
+          }else{
+            toast.error(response?.data?.message)
           }
-      ];
+  
+          resetForm();
+          setIsModalOpen(false);
+        } catch (error) {
+          toast.error(error?.response?.data?.message)
+        } finally {
+          setSubmitting(false);
+        }
+      },
+    });
+
   return (
     <>
-    <div  className=' bg-[#F7F7F7] my-5 py-12'>
-    <div className=' sm:max-w-6xl max-w-[95%] mx-auto text-center'>
-        <h1>Discover Our Custom Packaging Variety</h1>
-        <p className=' pt-2'>Check out all the different types of boxes we have at Umbrella Custom Packaging! We have special categories for boxes that you can customize just the way you like. You get to choose whether it’s the size, the material, or how it looks. So, have a look and pick the perfect box for you!
-</p>
-      </div>
-    </div>
-
-   <div>
-   <div className=' sm:max-w-6xl max-w-[95%] mb-8 mx-auto'>
-        <div className=' flex    sm:flex-row flex-col gap-5 justify-between w-full'>
-           <div className=' sm:w-9/12 w-full
-           '>
-             <div className=' grid  md:grid-cols-3 gap-4 grid-cols-2'>
-              {
-                data?.map((item,index)=>{
-                    return (
-                        <div className="   bg-[#f7f7f7] p-2 rounded-xl max-w-6xl mx-auto">
-<ProductCard data={item} />
-                        </div>
-                        
-                    )
-                })
-              }
-            </div>
-
-            <Button label={' Load More'} className='   mx-auto bg-[#4440E6] text-white' />
-
-           </div>
-
-           <div className=' sm:w-3/12 w-full'>
-             
-             <div className=' rounded-xl sticky top-7 bg-[#F7F7F7] p-3'>
-                <form>
-                     <h2 className='  text-center text-black'>Get an Instant Quote</h2>
-                    <div  className=' flex flex-col gap-2'>
-                        <div>
-                            <Input label={'Name'} className={' w-full border rounded-lg bg-white'} placeholder={'Name'} />
-                        </div>
-                        <div>
-                            <Input label={'Email'} className={' w-full border rounded-lg bg-white'} placeholder={'Email'} />
-                        </div>
-                        <div>
-                            <Input label={'Phone Number'} className={' w-full border rounded-lg bg-white'} placeholder={'Phone Number'} />
-                        </div>
-                        <div>
-                        <label className="pb-1.5 flex  text-[#333333] text-sm font-medium   text-textColor" htmlFor="review">
-                  Message:
-                </label>
-                <textarea
-                  id="review"
-                  rows={2}
-                  placeholder="Please Share specific packaging details such as dimensions, materials, weight limits, and design preferences. We'll"
-                  className="rounded-[8px] w-full border-[#333333] border bg-[#fff] p-3"
-                ></textarea>
-                        </div>
-                        <div>
-                        <label
-                  htmlFor="design_upload"
-                  className="block pb-1.5 text-[#333333] text-sm md:text-base font-medium"
-                >
-                  Upload Your Design, Max Size 5MB
-                  <p className="flex flex-wrap gap-0.5 text-xs md:text-sm mt-1">
-                    Allowed File Types:
-                    <span className="font-semibold"> png, pdf, jpg, jpeg, webp</span>
-                  </p>
-                </label>
-                <Input
-          type='file'
-          className='border w-full rounded-lg bg-white border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#4440E6] file:text-white hover:file:bg-[#3a36c7]'
-        />
-                        </div>
-                         <div>
-                            <Button label={' Send'} className=' w-full  bg-[#4440E6] text-white' />
-                        </div>
-                        
-                    </div>
-                </form>
-             </div>
-
-           </div>
-
-
+      <div className=' bg-[#F7F7F7] my-5 py-12'>
+        <div className=' sm:max-w-8xl max-w-[95%] mx-auto text-center'>
+          <h1>Discover Our Custom Packaging Variety</h1>
+          <p className=' pt-2'>Check out all the different types of boxes we have at Umbrella Custom Packaging! We have special categories for boxes that you can customize just the way you like. You get to choose whether it’s the size, the material, or how it looks. So, have a look and pick the perfect box for you!
+          </p>
         </div>
-    </div>
-   </div>
-    
-    <div className=' bg-[#FFF1E4] mb-8'>
-    <div className=' sm:max-w-6xl max-w-[95%]  mx-auto'>
-     <div className="flex flex-col  px-4 py-6  rounded-lg lg:flex-row  gap-8 items-center">
-    
-                    
-                    <div className='w-full lg:w-1/2 '>
-                    
-                    <div className=" pt-3">
-                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                        Why Choice us
-                        </h1>
-                       <div className=' overflow-y-auto h-56'>
-                       <p className="text-sm leading-6 text-gray-700 mb-6">
-                       We are your packaging partner at , not simply a business. Our persistent dedication to excellence, sustainability, and achievement is what distinguishes us. Utilizing cutting-edge technology, a committed team of professionals, and curiosity for creativity, we go above and beyond to provide custom die-cut mylar bag packaging solutions that surpass your needs. You can rely on us to creatively and carefully display, preserve, and market your products. Contact our dedicated team at or email us at <Link to={''}>Sales@umbrellapackaging.com</Link> to get started.
-                        </p>
-                      
-                       </div>
-                        
-                     
+      </div>
+
+      <div>
+        <div className=' sm:max-w-8xl max-w-[95%] mb-8 mx-auto'>
+          <div className=' flex    sm:flex-row flex-col gap-5 justify-between w-full'>
+            <div className=' sm:w-9/12 w-full
+           '>
+              <div className=' grid  md:grid-cols-3 gap-4 grid-cols-2'>
+                {
+                  products?.map((item, index) => {
+                    return (
+                      <div className="   bg-[#f7f7f7] p-2 rounded-xl max-w-6xl mx-auto">
+                        <ProductCard data={item} />
                       </div>
 
-                      <div className=" flex flex-wrap   mt-7 gap-2.5 items-center">
-            <Button
-            
-              label={"Get Instant Quote"}
-              className=" bg-[#4440E6] text-white"
-            />
-            
-          </div>
-                    </div>
+                    )
+                  })
+                }
+              </div>
 
-                    <div className="w-full  lg:w-1/2">
-              <img 
-                src={'https://umbrellapackaging.com/wp-content/uploads/2024/01/Industry-standard.png-2.webp'} 
-                alt="Custom packaging example" 
+             <div className=' pt-12'>
+               <Button label={' Load More'} className='   mx-auto bg-[#4440E6] text-white' />
+             </div>
+
+            </div>
+
+            <div className=' sm:w-3/12 w-full'>
+
+              <div className=' rounded-xl sticky top-7 bg-[#F7F7F7] p-3'>
+                  <form onSubmit={formik.handleSubmit} className="w-full">
+                    <h2 className=' text-center'>Get an Instant Quote</h2>
+            <div className="flex flex-col w-full gap-2 justify-between">
+              {/* Name Field */}
+              <div className="w-full">
+                <Input
+                  label="Name"
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`rounded-[8px] w-full border-[#333333] border bg-[#fff] p-3 ${
+                    formik.touched.name && formik.errors.name
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                />
+              </div>
+
+              {formik.touched.name && formik.errors.name && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.name}
+                  </div>
+                )}
+              {/* Email Field */}
+              <div className="w-full">
+                <Input
+                  label="Email"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`rounded-[8px] w-full border-[#333333] border bg-[#fff] p-3 ${
+                    formik.touched.email && formik.errors.email
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                />
+              </div>
+
+              {formik.touched.email && formik.errors.email && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.email}
+                  </div>
+                )}
+
+              {/* Phone Number Field */}
+              <div className="w-full">
+                <Input
+                  label="Phone Number"
+                  type="tel"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  value={formik.values.phoneNumber}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`rounded-[8px] w-full border-[#333333] border bg-[#fff] p-3 ${
+                    formik.touched.phoneNumber && formik.errors.phoneNumber
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                />
+              </div>
+
+              {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.phoneNumber}
+                  </div>
+                )}
+
+              {/* Message Field */}
+              <div className="flex flex-col">
+                <label
+                  className="pb-1.5 flex text-[#333333] text-sm font-medium text-textColor"
+                  htmlFor="message"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={3}
+                  placeholder="Please share specific packaging details such as dimensions, materials, weight limits, and design preferences. We'll promptly provide you with a quote"
+                  value={formik.values.message}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`rounded-[8px] w-full border-[#333333] border bg-[#fff] p-3 ${
+                    formik.touched.message && formik.errors.message
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                ></textarea>
+                {formik.touched.message && formik.errors.message && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.message}
+                  </div>
+                )}
+              </div>
+
+              {/* File Upload Field */}
+              <div className="w-full">
+                <label
+                  className="pb-1.5 flex flex-col text-[#333333] text-sm font-medium text-textColor"
+                  htmlFor="image"
+                >
+                  Upload Your Design
+                  
+                  <span className="text-xs text-black ml-1">
+                    (Max Size 5MB, Allowed: png, pdf, jpg, jpeg, webp)
+                  </span>
+                </label>
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  onChange={(event) => {
+                    formik.setFieldValue("image", event.currentTarget.files[0]);
+                  }}
+                  onBlur={formik.handleBlur}
+                  className="border w-full rounded-lg bg-white border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#4440E6] file:text-white hover:file:bg-[#3a36c7]"
+                />
+                {formik.touched.image && formik.errors.image && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.image}
+                  </div>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <div>
+                <Button
+                  type="submit"
+                  label={
+                    formik.isSubmitting ? "Submitting..." : "Send"
+                  }
+                  disabled={formik.isSubmitting || !formik.isValid}
+                  className="bg-[#4440E6] text-white w-full py-2 rounded-lg font-medium disabled:opacity-50"
+                />
+              </div>
+            </div>
+          </form>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div className=' bg-[#FFF1E4] mb-8'>
+        <div className=' sm:max-w-8xl max-w-[95%]  mx-auto'>
+          <div className="flex flex-col  px-4 py-6  rounded-lg lg:flex-row  gap-8 items-center">
+
+
+            <div className='w-full lg:w-1/2 '>
+
+              <div className=" pt-3">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  Why Choice us
+                </h1>
+                <div className=' overflow-y-auto h-56'>
+                  <p className="text-sm leading-6 text-gray-700 mb-6">
+                    We are your packaging partner at , not simply a business. Our persistent dedication to excellence, sustainability, and achievement is what distinguishes us. Utilizing cutting-edge technology, a committed team of professionals, and curiosity for creativity, we go above and beyond to provide custom die-cut mylar bag packaging solutions that surpass your needs. You can rely on us to creatively and carefully display, preserve, and market your products. Contact our dedicated team at or email us at <Link to={''}>Sales@umbrellapackaging.com</Link> to get started.
+                  </p>
+
+                </div>
+
+
+              </div>
+
+              <div className=" flex flex-wrap   mt-7 gap-2.5 items-center">
+                <Button
+
+                  label={"Get Instant Quote"}
+                  className=" bg-[#4440E6] text-white"
+                />
+
+              </div>
+            </div>
+
+            <div className="w-full  lg:w-1/2">
+              <img
+                src={'https://umbrellapackaging.com/wp-content/uploads/2024/01/Industry-standard.png-2.webp'}
+                alt="Custom packaging example"
                 className="w-full h-auto rounded-xl shadow-md object-cover"
                 loading="lazy"
               />
-            
-            </div>
-                      
-                    
-           
-                    </div>
-     </div>
-    </div>
 
-    <div className='bg-[#F7F7F7] py-5 mb-8'>
-    <CustomPackagingProduced/>
-    </div>
-    
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+      <div className='bg-[#F7F7F7] py-5 mb-8'>
+        <CustomPackagingProduced />
+      </div>
+
     </>
   )
 }

@@ -9,11 +9,12 @@ import Icon4 from '../../assets/images/icon/free shipping.svg';
 import Icon5 from '../../assets/images/icon/FSC Certified.svg';
 import Icon6 from '../../assets/images/icon/Quickest Turnaround.svg';
 import InstantQuoteModal from "../common/InstantQuoteModal";
+import { Link } from "react-router-dom";
 const Hero = () => {
   const [isModalOpen,setIsModalOpen] = useState(false);
   return (
-    <div className="   sm:max-w-6xl max-w-[95%] mx-auto">
-      <div className=" bg-[#B8B6FA99] flex sm:flex-row  flex-col  my-3.5 p-4 rounded-md w-full">
+    <div className="   sm:max-w-7xl max-w-[95%] mx-auto">
+      <div className=" bg-[#B8B6FA99] flex sm:flex-row  flex-col  items-center my-3.5 p-4 rounded-md w-full">
         <div className=" sm:w-7/12 w-full">
           <h1 className=" font-semibold">Umbrella Custom Packaging</h1>
           <h3 className=" pt-1.5 text-[#4440E6]">Customize Everything Under This Umbrella</h3>
@@ -41,10 +42,13 @@ const Hero = () => {
               label={"Get Custom Template"}
               className="bg-[#4440E6] text-white"
             />
-            <Button
+            <Link to={'/contact-us'}>
+              <Button
               label={"Order Sample Kit"}
               className="bg-[#4440E6]  text-white"
             />
+            </Link>
+          
           </div>
         </div>
         <div className=" sm:w-5/12 w-full">

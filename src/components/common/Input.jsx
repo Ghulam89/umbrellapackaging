@@ -10,6 +10,7 @@ const Input = ({
   value,
   Icon,
   required,
+  onBlur,
   star,
 }) => {
   return (
@@ -22,6 +23,7 @@ const Input = ({
         <h5 className=" text-red-600 m-0 pl-1">{star}</h5>
       </label>
       <input
+       onBlur={onBlur}
         value={value}
         onChange={onChange}
         placeholder={placeholder}

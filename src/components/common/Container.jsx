@@ -7,7 +7,7 @@ const Container = ({
   }) => {
     return (
       <div className={`w-full ${bgColor}`}>
-        <div className={`mx-auto ${fullWidth ? 'w-full' : 'max-w-[95%] sm:max-w-6xl'} ${className}`}>
+        <div className={`mx-auto ${fullWidth ? 'w-full' : 'max-w-[95%] sm:max-w-8xl'} ${className}`}>
           {children}
         </div>
       </div>

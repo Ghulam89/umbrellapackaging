@@ -1,0 +1,1 @@
+export const BaseUrl = "http://31.97.14.21:8000"

@@ -14,11 +14,11 @@ function PrivacyPolicy() {
         <div className='max-w-[1200px] mx-auto'>
             <div className='grid md:grid-cols-2 grid-cols-1 bg-[#d2e0FB59] rounded-[8px] p-5 mt-10'>
                 <div className='flex flex-col justify-center gap-10'>
-                    <h2 className='md:text-[40px] text-[20px] font-semibold leading-10  capitalize'>
+                    <h1 className='md:text-[40px] text-[20px] font-semibold leading-10  capitalize'>
                         We are committed to <br/>
-                        <span className='md:text-[40px] text-[20px] font-semibold leading-10 capitalize text-[#5A56E9]'>{text} <Cursor cursorStyle='|' /></span>
+                        <h5 className='md:text-[40px] text-[20px] font-semibold leading-10 capitalize text-[#5A56E9]'>{text} <Cursor cursorStyle='|' /></h5>
 
-                    </h2>
+                    </h1>
                     <p className='text-[#777777] md:text-[16px] text-[14px] text-left'>Various Custom Packaging Styles With Perfect Solutions.</p>
                     
                         <ul className='grid grid-cols-3 gap-0'>

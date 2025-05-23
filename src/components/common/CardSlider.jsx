@@ -6,11 +6,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { FaStar } from "react-icons/fa";
-import CategoryCard from "./CategoryCard";
-import ProducedCard from "./ProducedCard";
 import ProductCard from "./ProductCard";
-const CardSlider = ({testimonials}) => {
+const CardSlider = ({item}) => {
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
@@ -24,7 +21,7 @@ const CardSlider = ({testimonials}) => {
   }, []);
 
   return (
-    <div className="py-12">
+    <div className="">
         <div className="w-full  mx-auto relative">
        
           <Swiper
@@ -46,11 +43,11 @@ const CardSlider = ({testimonials}) => {
               1024: { slidesPerView:4},
             }}
           >
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
+            {item?.map((item) => (
+              <SwiperSlide key={item.id}>
                 <div className="   bg-[#f7f7f7] p-2 rounded-xl max-w-6xl mx-auto">
 
-                <ProductCard data={testimonial} />
+                <ProductCard data={item} />
                 </div>
               </SwiperSlide>
             ))}

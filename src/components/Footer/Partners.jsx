@@ -43,7 +43,7 @@ const Partners = () => {
     ]
   return (
     <>
-     <div className="sm:max-w-6xl   max-w-[95%] mx-auto">
+     <div className="sm:max-w-8xl   max-w-[95%] mx-auto">
      <div className="">
      <h4 className="text-[#333333] pb-3.5 font-semibold">
      Our Shipping Partners

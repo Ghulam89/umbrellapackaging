@@ -75,7 +75,7 @@ const CustomBoxMaterial = () => {
   }));
 
   return (
-    <div className="sm:max-w-6xl max-w-[95%] mx-auto">
+    <div className="sm:max-w-7xl max-w-[95%] mx-auto">
       <div className="text-center">
         <h1 className="text-[#333333] font-semibold">
           Custom Box Material Guide: Finding the Perfect Fit

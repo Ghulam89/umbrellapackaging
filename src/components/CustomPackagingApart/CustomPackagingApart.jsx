@@ -58,7 +58,7 @@ const CustomPackagingApart = () => {
     ]
   return (
     <>
-     <div className="sm:max-w-6xl  my-6  max-w-[95%] mx-auto">
+     <div className="sm:max-w-7xl  my-6  max-w-[95%] mx-auto">
      <div className="text-center pb-3">
      <h1 className="text-[#333333] pb-3.5 font-semibold">
      Your Packaging Partner: What Sets Umbrella Custom Packaging Apart

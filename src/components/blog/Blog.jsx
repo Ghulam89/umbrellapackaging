@@ -9,6 +9,8 @@ import { FaStar } from "react-icons/fa";
 import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import BlogCard from "../common/BlogCard";
+import { BaseUrl } from "../../utils/BaseUrl";
+import axios from "axios";
 
 const Blog = () => {
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -63,9 +65,25 @@ const Blog = () => {
     },
   ];
 
+
+  const [blog,setBlog] =useState([])
+
+
+
+  const fetchBlogs = async()=>{
+    const response =   await axios.get(`${BaseUrl}/blog/getAll`)
+ 
+    setBlog(response?.data?.data)
+   }
+ 
+ 
+   useEffect(()=>{
+    fetchBlogs();
+   },[])
+
   return (
     <div className="py-12">
-      <div className=" sm:max-w-6xl max-w-[95%] mx-auto  text-center">
+      <div className=" sm:max-w-7xl max-w-[95%] mx-auto  text-center">
         <h2 className=" pb-4 font-semibold">Blog & News</h2>
         <div className="w-full  mx-auto">
           <Swiper
@@ -87,8 +105,8 @@ const Blog = () => {
               1024: { slidesPerView: 3 },
             }}
           >
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
+            {blog.map((testimonial) => (
+              <SwiperSlide key={testimonial._id}>
                 <BlogCard data={testimonial} />
               </SwiperSlide>
             ))}

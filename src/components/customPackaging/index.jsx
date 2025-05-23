@@ -41,9 +41,12 @@ const CustomPackaging = () => {
     },
   ];
 
+
+  
+
   return (
     <>
-      <div className="   sm:max-w-6xl max-w-[95%] mx-auto">
+      <div className="   sm:max-w-7xl max-w-[95%] mx-auto">
         <div className=" bg-[#F7F7F7] text-center  my-7 p-4 rounded-md w-full">
           <h1 className=" text-[#333333] font-semibold">
             Discover Our Custom Packaging Variety
