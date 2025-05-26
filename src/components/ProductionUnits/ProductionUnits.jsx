@@ -4,7 +4,7 @@ import UnitBG from '../../assets/images/bg-unit.webp';
 function ProductionUnits() {
   return (
     <div className='bg-[#f4ecfb] mb-5'>
-      <div className='sm:max-w-8xl mb-3.5 max-w-[95%] mx-auto'>
+      <div className='sm:max-w-7xl mb-3.5 max-w-[95%] mx-auto'>
         {/* Hero Section with Background Image */}
         <div 
           className='h-[300px] bg-contain flex justify-center items-center bg-no-repeat bg-center relative' 

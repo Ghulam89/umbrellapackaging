@@ -39,7 +39,7 @@ const Blogs = () => {
 
     return (
         <>
-            <div className="sm:max-w-8xl max-w-[95%] mx-auto px-4 py-8">
+            <div className="sm:max-w-7xl max-w-[95%] mx-auto px-4 py-8">
                 <div className='bg-[#2E2D2D] rounded-[8px] p-5 h-[230px] flex flex-col justify-center items-center space-y-5 mb-5'>
                     <h5 className='md:text-[43px] flex gap-2 items-center text-[30px] text-white font-semibold leading-10 text-center'>Our
                         <h5 className='md:text-[43px] text-[30px] text-[#ff931e]'> Blogs</h5></h5>

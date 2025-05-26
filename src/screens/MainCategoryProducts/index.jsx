@@ -42,7 +42,7 @@ const MainCategoryProducts = () => {
   return (
     <div>
       <Container>
-        <div style={{ backgroundColor: categoryData?.bgColor }} className="flex sm:flex-row  items-center flex-col  my-3.5 p-4 rounded-md w-full">
+        <div style={{ backgroundColor: categoryData?.bgColor }} className="flex  sm:max-w-7xl max-w-[95%]  mx-auto sm:flex-row  items-center flex-col  my-3.5 p-4 rounded-md w-full">
           <div className=" sm:w-7/12 w-full">
             <h1 className=" font-semibold">Umbrella Custom Packaging</h1>
             <h2
@@ -84,7 +84,7 @@ const MainCategoryProducts = () => {
           </div>
         </div>
 
-        <div className=" bg-[#F7F7F7] rounded-xl  py-8 px-5  my-8">
+        <div className=" bg-[#F7F7F7] rounded-xl  sm:max-w-7xl max-w-[95%]  mx-auto py-8 px-5  my-8">
           <h1 className=" text-center">
             Discover Our Custom Packaging Variety
           </h1>
@@ -103,7 +103,7 @@ const MainCategoryProducts = () => {
       {categoryProduct?.map((item, index) => {
         return (
           <div className="bg-[#EFF4FE] py-4">
-            <Container fullWidth={false} className="">
+            <Container fullWidth={false} className=" sm:max-w-7xl max-w-[95%]  mx-auto">
               <div className=" flex sm:flex-row flex-col gap-3  pt-5 justify-between items-center">
                 <div>
                   <h2 className="">{item?.categoryName}</h2>
@@ -127,7 +127,7 @@ const MainCategoryProducts = () => {
         )
       })}
 
-      <div className=' sm:max-w-8xl max-w-[95%]  mx-auto'>
+      <div className=' sm:max-w-7xl max-w-[95%]  mx-auto'>
         <div className="flex flex-col  px-4 py-6  rounded-lg lg:flex-row  gap-8 items-center">
           <div className="w-full  lg:w-1/2">
             <img
