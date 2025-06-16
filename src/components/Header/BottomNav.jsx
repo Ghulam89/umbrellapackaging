@@ -8,7 +8,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [allCategories, setAllCategories] = useState([])
   const fetchCategories = async () => {
-  const response = await axios.get(`${BaseUrl}/brands/getAll`)
+    const response = await axios.get(`${BaseUrl}/brands/getAll`)
     console.log(response);
     setAllCategories(response?.data?.data)
   }
@@ -17,7 +17,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
     fetchCategories();
   }, [])
 
-  
+
 
   const handleCategoryHover = (category) => {
     setHoveredCategory(category);
@@ -49,7 +49,8 @@ const BottomNav = ({ Menu, OpenMenu }) => {
             >
               <Link
                 onClick={handleCategoryLeave}
-                to={`/main-category/${category?._id}`}
+                to={`/${category?.slug}/`}
+                state={{ id: category?._id }}
                 className="flex items-center gap-1  uppercase py-2.5 text-sm font-normal transition-colors"
               >
                 {category.name}
@@ -92,9 +93,10 @@ const BottomNav = ({ Menu, OpenMenu }) => {
               <div className="max-w-8xl mx-auto px-4 py-3 grid grid-cols-4 gap-4">
                 {selectedCategory.map((submenu, index) => (
                   <Link
+                    key={submenu._id}
                     onClick={handleCategoryLeave}
-                    key={index}
-                    to={`/category/${submenu._id}`}
+                    to={`/${submenu.slug}/`}
+                    state={{ slug: submenu._id }}
                     className=" text-gray-700 flex font-semibold  capitalize gap-1 items-center transition-colors"
                   >
                     <img src={`${BaseUrl}/${submenu?.icon}`} alt="" className="w-8" />{" "}

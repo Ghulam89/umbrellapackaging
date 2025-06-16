@@ -3,13 +3,17 @@ import Button from "../../components/common/Button";
 import Container from "../../components/common/Container";
 import CardSlider from "../../components/common/CardSlider";
 import CustomPackagingProduced from "../../components/CustomPackagingProduced";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import DOMPurify from 'dompurify';
 import { BaseUrl } from "../../utils/BaseUrl";
 const MainCategoryProducts = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const { id } = location.state || {};
   const [categoryData, setCategoryData] = useState({})
+
+  console.log(categoryData);
+
   const [categoryProduct, setCategoryProduct] = useState([]);
   const fetchCategory = async () => {
     const response = await axios.get(`${BaseUrl}/brands/get/${id}`)
@@ -19,6 +23,7 @@ const MainCategoryProducts = () => {
 
   }
 
+  
 
   const fetchCategoryProduct = async () => {
     const response = await axios.get(`${BaseUrl}/products/categoryProducts/${id}/products-by-category`)
@@ -29,6 +34,7 @@ const MainCategoryProducts = () => {
   }
 
 
+  
 
   useEffect(() => {
     if (id) {
@@ -39,8 +45,59 @@ const MainCategoryProducts = () => {
 
   }, [id])
 
+  useEffect(() => {
+  if (categoryData?.metaTitle) {
+    document.title = `${categoryData.metaTitle}`;
+    
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.content = categoryData.metaDescription 
+      ? `${categoryData.metaDescription}`
+      : "";
+  }
+
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = "keywords";
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = categoryData.keywords 
+      ? `${categoryData.keywords}`
+      : "";
+
+      let metaRobots = document.querySelector('meta[name="robots"]');
+    if (!metaRobots) {
+      metaRobots = document.createElement('meta');
+      metaRobots.name = "robots";
+      document.head.appendChild(robots);
+    }
+    metaRobots.content = categoryData.robots 
+      ? `${categoryData.robots}`
+      : "index, follow";
+
+     let linkCanonical = document.querySelector('link[rel="canonical"]');
+    if (!linkCanonical) {
+      linkCanonical = document.createElement('link');
+      linkCanonical.rel = "canonical";
+      document.head.appendChild(linkCanonical);
+    }
+    linkCanonical.href = categoryData.canonicalUrl 
+      ? `${categoryData.canonicalUrl}`
+      : window.location.href.split('?')[0]
+  
+  
+
+}, [categoryData]);
+
   return (
     <div>
+        
+        
       <Container>
         <div style={{ backgroundColor: categoryData?.bgColor }} className="flex  sm:max-w-7xl max-w-[95%]  mx-auto sm:flex-row  items-center flex-col  my-3.5 p-4 rounded-md w-full">
           <div className=" sm:w-7/12 w-full">
@@ -66,11 +123,13 @@ const MainCategoryProducts = () => {
               />
             </div>
             <div className="mt-7">
-              <Button
+              <Link to={'/shop'}>
+                <Button
 
-                label={"Our Catalogue"}
-                className=" bg-white border border-[#4440E6] text-[#4440E6] hover:bg-[#4440E6]  hover:text-white w-80"
-              />
+                  label={"Our Catalogue"}
+                  className=" bg-white border border-[#4440E6] text-[#4440E6] hover:bg-[#4440E6]  hover:text-white w-80"
+                />
+              </Link>
             </div>
           </div>
           <div className=" sm:w-5/12 w-full">
@@ -79,7 +138,7 @@ const MainCategoryProducts = () => {
                 `${BaseUrl}/${categoryData?.bannerImage}`
               }
               className=" w-full"
-              alt=""
+              alt={categoryData?.bannerAltText}
             />
           </div>
         </div>
@@ -132,7 +191,7 @@ const MainCategoryProducts = () => {
           <div className="w-full  lg:w-1/2">
             <img
               src={`${BaseUrl}/${categoryData?.image}`}
-              alt="Custom packaging example"
+              alt={categoryData?.imageAltText}
               className="w-full h-auto rounded-xl shadow-md object-cover"
               loading="lazy"
             />

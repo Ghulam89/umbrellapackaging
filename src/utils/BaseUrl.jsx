@@ -1,1 +1,2 @@
-export const BaseUrl = "http://31.97.14.21:8000"
+export const BaseUrl = "https://xleatherjacket.com"
+// export const BaseUrl = "http://localhost:8000"

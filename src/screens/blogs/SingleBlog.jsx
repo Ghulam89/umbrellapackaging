@@ -42,7 +42,7 @@ function SingleBlog() {
                         <img
                             src={`${BaseUrl}/${singleBlog.image}`}
                             className='rounded-lg w-full h-auto max-h-96 object-cover'
-                            alt="Blog cover"
+                            alt={singleBlog?.imageAltText}
                         />
                     )}
 

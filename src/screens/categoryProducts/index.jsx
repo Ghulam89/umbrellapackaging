@@ -20,13 +20,14 @@ import brand4 from '../../assets/images/brand/brand4.svg';
 import brand5 from '../../assets/images/brand/brand5.png';
 import axios from 'axios';
 import { BaseUrl } from '../../utils/BaseUrl';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 const CategoryProducts = () => {
-  const { id } = useParams();
+  const location = useLocation();
+  const { slug } = location.state || {};
   const [categoryData, setCategoryData] = useState({});
-  
-  const [products,setProducts] = useState([])
+
+  const [products, setProducts] = useState([])
 
   const Data = [
     {
@@ -127,8 +128,8 @@ const CategoryProducts = () => {
 
   ]
 
-  const fetchCategory = async (id) => {
-    const response = await axios.get(`${BaseUrl}/category/get/${id}`)
+  const fetchCategory = async (slug) => {
+    const response = await axios.get(`${BaseUrl}/category/get/${slug}`)
     console.log(response);
 
     setCategoryData(response?.data?.data)
@@ -136,28 +137,28 @@ const CategoryProducts = () => {
   }
 
 
-   const fetchProduct = async (id) => {
-        const response = await axios.get(`${BaseUrl}/products/categoryProducts/${id}`)
-        console.log(response);
-    
-        setProducts(response?.data?.data)
-    
-      }
-    
+  const fetchProduct = async (slug) => {
+    const response = await axios.get(`${BaseUrl}/products/categoryProducts/${slug}`)
+    console.log(response,'products====>>');
+
+    setProducts(response?.data?.data)
+
+  }
+
 
   useEffect(() => {
-  
 
-    if (id) {
-      fetchCategory(id);
-      fetchProduct(id);
+
+    if (slug) {
+      fetchCategory(slug);
+      fetchProduct(slug);
     }
-  }, [id])
+  }, [slug])
 
   return (
     <>
       <div className=' bg-[#F7F7F7] py-6'>
-        <div className=' sm:max-w-8xl max-w-[95%] mx-auto'>
+        <div className=' sm:max-w-7xl max-w-[95%] mx-auto'>
           <div className="flex flex-col lg:flex-row gap-8 items-center">
             {/* Text Content */}
 
@@ -178,7 +179,7 @@ const CategoryProducts = () => {
                   {categoryData?.subTitle}
                 </h3>
                 <div className=' overflow-y-auto h-56'>
-                  <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.description) }}
+                  <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData?.description) }}
                     className="text-sm leading-6 text-gray-700 mb-6">
 
                   </p>
@@ -219,7 +220,7 @@ const CategoryProducts = () => {
         </div>
       </div>
       <div className='  py-6'>
-        <div className=' sm:max-w-8xl max-w-[95%] mx-auto'>
+        <div className=' sm:max-w-7xl max-w-[95%] mx-auto'>
           <div className=' py-12'>
             <h1 className=" text-[#333333] font-semibold text-center">
               Find a Variety of Automotive Boxes Below
@@ -234,14 +235,14 @@ const CategoryProducts = () => {
 
               {products?.map((item, index) => {
                 return <div>
-                 <Link to={`/product/${item?._id}`}>
-        <div className="">
-          <div className="  sm:h-64 h-44">
-          <img src={`${BaseUrl}/${item?.images?.[0]}`} alt="" className=" w-full h-full  rounded-xl" />
-          </div>
-          <h6 className="  text-center  font-medium text-[#333333]  text-lg  py-5">{item?.name}</h6>
-        </div>
-      </Link>
+                  <Link  state={{ productSlug: item._id}} to={`/${item?.slug}`}>
+                    <div className="">
+                      <div className="  sm:h-64 h-44">
+                        <img   src={`${BaseUrl}/${item?.images?.[0]?.url}`} alt={item?.images?.[0]?.altText} className=" w-full h-full  rounded-xl" />
+                      </div>
+                      <h6 className="  text-center  font-medium text-[#333333]  text-lg  py-5">{item?.name}</h6>
+                    </div>
+                  </Link>
                 </div>
               })}
 
@@ -301,15 +302,15 @@ const CategoryProducts = () => {
               <div className='w-full lg:w-1/2 '>
 
                 <div className=" pt-3">
-                  <h1  className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
                     {categoryData?.bannerTitleFirst}
                   </h1>
                   <div className=' overflow-y-auto h-56'>
                     <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentFirst) }} className="text-sm leading-6  mb-6">
-                      
+
 
                     </p>
-                    
+
                   </div>
 
 
@@ -346,7 +347,7 @@ const CategoryProducts = () => {
 
 
 
-        <div className="sm:max-w-8xl  my-6 bg-[#eff4fe] py-3 rounded-lg  max-w-[95%] mx-auto">
+        <div className="sm:max-w-7xl  my-6 bg-[#eff4fe] py-3 rounded-lg  max-w-[95%] mx-auto">
           <div className="text-center pb-3">
             <h1 className="text-[#333333] pb-3.5 font-semibold">
               Your Packaging Partner: What Sets Umbrella Custom Packaging Apart
@@ -403,7 +404,7 @@ const CategoryProducts = () => {
         </div>
 
 
-        <div className=' sm:max-w-8xl max-w-[95%] mx-auto'>
+        <div className=' sm:max-w-7xl max-w-[95%] mx-auto'>
           <div className="flex flex-col bg-[#F4ECFB] px-4 py-6  rounded-lg lg:flex-row mt-10 gap-8 items-center">
             {/* Text Content */}
 
@@ -414,13 +415,13 @@ const CategoryProducts = () => {
                   {categoryData?.bannerTitleSecond}
                 </h1>
                 <div className=' overflow-y-auto h-56'>
-                  <p  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentSecond) }} className="text-sm leading-6  mb-6">
-                   
+                  <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentSecond) }} className="text-sm leading-6  mb-6">
+
 
 
 
                   </p>
-                 
+
                 </div>
 
 
@@ -452,11 +453,11 @@ const CategoryProducts = () => {
 
 
         <PackagingBanner title={'Order Kraft Packaging For Sustainable Future.'} subTitle={"Go Green with Umbrella Custom Packaging Go For Kraft Packaging"} bgImage="https://umbrellapackaging.com/wp-content/uploads/2024/01/f2.webp" />
-      
 
-        <div className=' sm:max-w-8xl max-w-[95%] mx-auto'>
+
+        <div className=' sm:max-w-7xl max-w-[95%] mx-auto'>
           <div className="flex flex-col bg-[#F4ECFB] px-4 py-6  rounded-lg lg:flex-row mt-10 gap-8 items-center">
-             {/* Image */}
+            {/* Image */}
             {/* Fixed version */}
             <div className="w-full  lg:w-1/2">
               <img
@@ -476,13 +477,13 @@ const CategoryProducts = () => {
                   {categoryData?.bannerTitleThird}
                 </h1>
                 <div className=' overflow-y-auto h-56'>
-                  <p  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentThird) }} className="text-sm leading-6  mb-6">
-                   
+                  <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentThird) }} className="text-sm leading-6  mb-6">
+
 
 
 
                   </p>
-                 
+
                 </div>
 
 
@@ -498,13 +499,13 @@ const CategoryProducts = () => {
               </div>
             </div>
 
-           
+
           </div>
         </div>
 
 
 
-        <div className=' sm:max-w-8xl mt-3.5 max-w-[95%] mx-auto'>
+        <div className=' sm:max-w-7xl mt-3.5 max-w-[95%] mx-auto'>
           <div className="flex flex-col bg-[#F4ECFB] px-4 py-6  rounded-lg lg:flex-row mt-10 gap-8 items-center">
 
             {/* Text Content */}
@@ -516,13 +517,13 @@ const CategoryProducts = () => {
                   {categoryData?.bannerTitleFourth}
                 </h1>
                 <div className=' overflow-y-auto h-56'>
-                  <p  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentFourth) }} className="text-sm leading-6  mb-6">
-                   
+                  <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.bannerContentFourth) }} className="text-sm leading-6  mb-6">
+
 
 
 
                   </p>
-                 
+
                 </div>
 
 
@@ -538,7 +539,7 @@ const CategoryProducts = () => {
               </div>
             </div>
 
-             {/* Image */}
+            {/* Image */}
             {/* Fixed version */}
             <div className="w-full  lg:w-1/2">
               <img
@@ -549,16 +550,13 @@ const CategoryProducts = () => {
               />
 
             </div>
-            
-
-           
           </div>
         </div>
 
       </div>
 
 
-      <div className=' mb-5 flex  justify-between sm:flex-row flex-col gap-3 items-center px-3 py-5 sm:max-w-8xl max-w-[95%] bg-[#FFDEBF] rounded-lg mx-auto'>
+      <div className=' mb-5 flex  justify-between sm:flex-row flex-col gap-3 items-center px-3 py-5 sm:max-w-7xl max-w-[95%] bg-[#FFDEBF] rounded-lg mx-auto'>
         <div>
           <h3>Looking for the templates of custom boxes and packaging ?
           </h3>
@@ -576,7 +574,7 @@ const CategoryProducts = () => {
 
 
       <div className=' py-5' style={{ backgroundImage: `url(${buliding})` }}>
-        <div className='  sm:max-w-8xl flex sm:flex-row flex-col items-center max-w-[95%] mx-auto'>
+        <div className='  sm:max-w-7xl flex sm:flex-row flex-col items-center max-w-[95%] mx-auto'>
           <div className=' sm:w-6/12 w-full'>
             <div className=' rounded-xl px-4 py-4 bg-white'>
 

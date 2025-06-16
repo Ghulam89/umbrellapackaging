@@ -94,8 +94,8 @@ const Shop = () => {
 
   return (
     <>
-      <div className=' bg-[#F7F7F7] my-5 py-12'>
-        <div className=' sm:max-w-8xl max-w-[95%] mx-auto text-center'>
+      <div className=' bg-[#F7F7F7] sm:max-w-7xl max-w-[95%] mx-auto  px-3 my-5 py-12'>
+        <div className='  mx-auto text-center'>
           <h1>Discover Our Custom Packaging Variety</h1>
           <p className=' pt-2'>Check out all the different types of boxes we have at Umbrella Custom Packaging! We have special categories for boxes that you can customize just the way you like. You get to choose whether it’s the size, the material, or how it looks. So, have a look and pick the perfect box for you!
           </p>
@@ -103,7 +103,7 @@ const Shop = () => {
       </div>
 
       <div>
-        <div className=' sm:max-w-8xl max-w-[95%] mb-8 mx-auto'>
+        <div className=' sm:max-w-7xl max-w-[95%] mb-8 mx-auto'>
           <div className=' flex    sm:flex-row flex-col gap-5 justify-between w-full'>
             <div className=' sm:w-9/12 w-full
            '>
@@ -283,8 +283,8 @@ const Shop = () => {
         </div>
       </div>
 
-      <div className=' bg-[#FFF1E4] mb-8'>
-        <div className=' sm:max-w-8xl max-w-[95%]  mx-auto'>
+      <div className=' bg-[#FFF1E4]  sm:max-w-7xl max-w-[95%]  mx-auto mb-8'>
+        <div className=''>
           <div className="flex flex-col  px-4 py-6  rounded-lg lg:flex-row  gap-8 items-center">
 
 
@@ -330,7 +330,7 @@ const Shop = () => {
         </div>
       </div>
 
-      <div className='bg-[#F7F7F7] py-5 mb-8'>
+      <div className=' mb-4'>
         <CustomPackagingProduced />
       </div>
 

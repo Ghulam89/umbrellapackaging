@@ -10,7 +10,7 @@ import FAQ from '../../components/FAQ/FAQ'
 import CustomPackagingApart from '../../components/CustomPackagingApart/CustomPackagingApart'
 import axios from 'axios'
 import { BaseUrl } from '../../utils/BaseUrl'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import DOMPurify from 'dompurify';
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
@@ -20,8 +20,9 @@ const ProductDetails = ({
   autoSlide = false,
   autoSlideInterval = 3000,
 }) => {
-
-  const { id } = useParams()
+ 
+  const location = useLocation();
+  const { productSlug } = location.state || {};
   const dispatch = useDispatch()
   const [product, setProduct] = useState({})
   const [relatedProduct, setRelatedProduct] = useState([])
@@ -392,12 +393,12 @@ const ProductDetails = ({
 
 
   const fetchProducts = async () => {
-    const response = await axios.get(`${BaseUrl}/products/get/${id}`)
+    const response = await axios.get(`${BaseUrl}/products/get/${productSlug}`)
     setProduct(response?.data?.data)
   }
 
   const fetchRelatedProducts = async () => {
-    const response = await axios.get(`${BaseUrl}/products/related-products/${id}`)
+    const response = await axios.get(`${BaseUrl}/products/related-products/${productSlug}`)
     setRelatedProduct(response?.data?.data)
   }
 
@@ -425,7 +426,7 @@ const ProductDetails = ({
                     <div key={i} className="flex-none w-full rounded-xl overflow-hidden h-full">
                       <img
                         onClick={() => openImageViewer(image, i)}
-                        src={`${BaseUrl}/${image}`}
+                        src={`${BaseUrl}/${image?.url}`}
                         alt=""
                         className="w-full cursor-pointer h-full object-cover"
                       />
@@ -460,7 +461,7 @@ const ProductDetails = ({
                                         `}
                   >
                     <img
-                      src={`${BaseUrl}/${image}`}
+                      src={`${BaseUrl}/${image?.url}`}
                       alt=""
                       className="w-full h-full object-center"
                     />
