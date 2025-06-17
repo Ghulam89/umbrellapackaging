@@ -8,7 +8,7 @@ const ProductCard = ({data}) => {
   
   return (
     <>
-      <Link state={{ productSlug: data._id}} to={`/${data?.slug}`}>
+      <Link state={{ productSlug: data._id}} to={`/${data?.slug}/`}>
         <div className="">
           <div className="  sm:h-64 h-44">
           <img src={`${BaseUrl}/${data?.images?.[0]?.url}`} alt="" className=" w-full h-full  rounded-xl" />

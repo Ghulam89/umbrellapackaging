@@ -7,23 +7,24 @@ import { BaseUrl } from "./BaseUrl";
 import ProductDetails from "../screens/productDetails";
 
 const CategoryRouter = () => {
-  const { slug } = useParams();
+  const { slugs } = useParams();
   const location = useLocation();
-  const { id, productSlug } = location.state || {};
+  const { id,slug, productSlug} = location.state || {};
   const [componentToRender, setComponentToRender] = useState(null);
   const [error, setError] = useState(null);
-
-  // Clean the slug by removing trailing slash if present
+  
+  const cleanSId = id?.endsWith('/') ? id.slice(0, -1) : id;
   const cleanSlug = slug?.endsWith('/') ? slug.slice(0, -1) : slug;
+  const cleanProductSlug = productSlug?.endsWith('/') ? productSlug.slice(0, -1) : productSlug;
 
   useEffect(() => {
     const determineComponent = async () => {
       try {
-        // First try to fetch as product
-        if (cleanSlug) {
+        const productSlugToCheck = cleanProductSlug || cleanSlug;
+        if (productSlugToCheck) {
           try {
-            const productRes = await axios.get(`${BaseUrl}/products/get/${cleanSlug}`);
-            if (productRes.data.data) {
+            const productRes = await axios.get(`${BaseUrl}/products/get/${productSlugToCheck}`);
+            if (productRes.data?.data) {
               setComponentToRender('product');
               return;
             }
@@ -32,80 +33,45 @@ const CategoryRouter = () => {
           }
         }
 
-        // Then try as main category (brand)
-        if (cleanSlug) {
+        const mainCategoryIdToCheck = cleanSId || id;
+        if (mainCategoryIdToCheck) {
           try {
-            const mainCatRes = await axios.get(`${BaseUrl}/brands/getBySlug/${cleanSlug}`);
-            if (mainCatRes.data.data) {
+            const mainCatRes = await axios.get(`${BaseUrl}/brands/get/${mainCategoryIdToCheck}`);
+            if (mainCatRes.data?.data) {
               setComponentToRender('mainCategory');
               return;
             }
           } catch (mainCatError) {
+            // Not a main category, continue checking
             console.log('Not a main category, checking sub-category');
           }
         }
 
-        // Then try as sub-category
-        if (cleanSlug) {
+        // Priority 3: Check if it's a sub-category
+        const subCategorySlugToCheck = cleanSlug || slug;
+        if (subCategorySlugToCheck) {
           try {
-            const subCatRes = await axios.get(`${BaseUrl}/category/getBySlug/${cleanSlug}`);
-            if (subCatRes.data.data) {
+            const subCatRes = await axios.get(`${BaseUrl}/category/get/${subCategorySlugToCheck}`);
+            if (subCatRes.data?.data) {
               setComponentToRender('category');
               return;
             }
           } catch (subCatError) {
-            console.error('Sub-category fetch error:', subCatError);
+            // Not a sub-category
+            console.log('Not a sub-category');
           }
         }
 
-        // Fallback to state-based routing if slug-based routing fails
-        if (productSlug) {
-          try {
-            const productRes = await axios.get(`${BaseUrl}/products/get/${productSlug}`);
-            if (productRes.data.data) {
-              setComponentToRender('product');
-              return;
-            }
-          } catch (productError) {
-            console.error('Product fetch error:', productError);
-            setError('Product not found');
-            return;
-          }
-        }
-
-        if (id) {
-          try {
-            const mainCatRes = await axios.get(`${BaseUrl}/brands/get/${id}`);
-            if (mainCatRes.data.data) {
-              setComponentToRender('mainCategory');
-              return;
-            }
-          } catch (mainCatError) {
-            console.log('Not a main category, checking sub-category');
-          }
-        }
-
-        if (slug) {
-          try {
-            const subCatRes = await axios.get(`${BaseUrl}/category/get/${slug}`);
-            if (subCatRes.data.data) {
-              setComponentToRender('category');
-              return;
-            }
-          } catch (subCatError) {
-            console.error('Sub-category fetch error:', subCatError);
-          }
-        }
-
+        // If none of the above matched
         setError('Category or product not found');
       } catch (error) {
         console.error('Error determining component:', error);
-        setError(error.message);
+        setError(error.message || 'An error occurred while loading the page');
       }
     };
 
     determineComponent();
-  }, [cleanSlug, id, slug, productSlug]);
+  }, [slug, id, productSlug, cleanSlug, cleanSId, cleanProductSlug]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -113,11 +79,11 @@ const CategoryRouter = () => {
 
   switch (componentToRender) {
     case 'mainCategory':
-      return <MainCategoryProducts key={id || cleanSlug} id={id || cleanSlug} />;
+      return <MainCategoryProducts key={cleanSId || id} id={cleanSId || id} />;
     case 'category':
-      return <CategoryProducts key={slug || cleanSlug} id={slug || cleanSlug} />;
+      return <CategoryProducts key={cleanSlug || slug} id={cleanSlug || slug} />;
     case 'product':
-      return <ProductDetails key={productSlug || cleanSlug} id={productSlug || cleanSlug} />;
+      return <ProductDetails key={cleanProductSlug || cleanSlug} id={cleanProductSlug || cleanSlug} />;
     default:
       return <div>Loading...</div>;
   }

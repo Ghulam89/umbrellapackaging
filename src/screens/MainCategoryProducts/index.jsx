@@ -77,8 +77,8 @@ const MainCategoryProducts = () => {
       document.head.appendChild(robots);
     }
     metaRobots.content = categoryData.robots 
-      ? `${categoryData.robots}`
-      : "index, follow";
+      ? `noindex, nofollow`
+      : "noindex, nofollow";
 
      let linkCanonical = document.querySelector('link[rel="canonical"]');
     if (!linkCanonical) {

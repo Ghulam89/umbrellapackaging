@@ -51,7 +51,7 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                 onClick={handleCategoryLeave}
                 to={`/${category?.slug}/`}
                 state={{ id: category?._id }}
-                className="flex items-center gap-1  uppercase py-2.5 text-sm font-normal transition-colors"
+                className="flex items-center gap-1  uppercase py-2.5 text-sm  font-medium transition-colors"
               >
                 {category.name}
                 {category.midcategories?.length > 0 && (
@@ -61,22 +61,22 @@ const BottomNav = ({ Menu, OpenMenu }) => {
             </li>
           ))}
           <li>
-            <Link to="/portfolio" className="hover:text-orange-500 uppercase transition-colors">
+            <Link to="/portfolio" className=" uppercase  font-medium  transition-colors">
               Portfolio
             </Link>
           </li>
           <li>
-            <Link to="/blogs" className="hover:text-orange-500 uppercase transition-colors">
+            <Link to="/blogs" className=" uppercase   font-medium  transition-colors">
               Blog
             </Link>
           </li>
           <li>
-            <Link to="/about-us" className="hover:text-orange-500 uppercase transition-colors">
+            <Link to="/about-us" className=" uppercase  font-medium  transition-colors">
               About us
             </Link>
           </li>
           <li>
-            <Link to="/contact-us" className="hover:text-orange-500 uppercase transition-colors">
+            <Link to="/contact-us" className=" uppercase  font-medium  transition-colors">
               Contact us
             </Link>
           </li>
@@ -120,7 +120,8 @@ const BottomNav = ({ Menu, OpenMenu }) => {
           {allCategories?.map((category, index) => (
             <li key={index}>
               <Link
-                to={`/main-category/${category?._id}`}
+                 to={`/${category?.slug}/`}
+                state={{ id: category?._id }}
                 className="flex items-center gap-1 py-2.5 text-sm font-normal transition-colors"
                 onClick={OpenMenu}
               >
@@ -134,7 +135,8 @@ const BottomNav = ({ Menu, OpenMenu }) => {
                   {category.midcategories.map((submenu, subIndex) => (
                     <li key={subIndex}>
                       <Link
-                        to={`/category/${submenu._id}`}
+                         to={`/${submenu.slug}/`}
+                    state={{ slug: submenu._id }}
                         className="text-sm text-gray-700 flex gap-0.5 items-center transition-colors"
                         onClick={OpenMenu}
                       >

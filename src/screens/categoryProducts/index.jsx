@@ -155,6 +155,57 @@ const CategoryProducts = () => {
     }
   }, [slug])
 
+
+
+   useEffect(() => {
+    if (categoryData?.metaTitle) {
+      document.title = `${categoryData.metaTitle}`;
+      
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = "description";
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.content = categoryData.metaDescription 
+        ? `${categoryData.metaDescription}`
+        : "";
+    }
+  
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.name = "keywords";
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.content = categoryData.keywords 
+        ? `${categoryData.keywords}`
+        : "";
+  
+        let metaRobots = document.querySelector('meta[name="robots"]');
+      if (!metaRobots) {
+        metaRobots = document.createElement('meta');
+        metaRobots.name = "robots";
+        document.head.appendChild(robots);
+      }
+      metaRobots.content = categoryData.robots 
+        ? `noindex, nofollow`
+        : "noindex, nofollow";
+  
+       let linkCanonical = document.querySelector('link[rel="canonical"]');
+      if (!linkCanonical) {
+        linkCanonical = document.createElement('link');
+        linkCanonical.rel = "canonical";
+        document.head.appendChild(linkCanonical);
+      }
+      linkCanonical.href = categoryData.canonicalUrl 
+        ? `${categoryData.canonicalUrl}`
+        : window.location.href.split('?')[0]
+    
+    
+  
+  }, [categoryData]);
+
   return (
     <>
       <div className=' bg-[#F7F7F7] py-6'>
@@ -188,7 +239,7 @@ const CategoryProducts = () => {
 
               </div>
 
-              <div className=" flex flex-wrap   mt-7 gap-2.5 items-center">
+              <div className=" flex flex-wrap    gap-2.5 items-center">
                 <Button
 
                   label={"Get Instant Quote"}
@@ -210,7 +261,7 @@ const CategoryProducts = () => {
             <div className="w-full  lg:w-1/2">
               <img
                 src={`${BaseUrl}/${categoryData?.image}`}
-                alt="Custom packaging example"
+                alt={categoryData?.bannerAltText}
                 className="w-full h-auto rounded-xl shadow-md object-cover"
                 loading="lazy"
               />
@@ -235,12 +286,12 @@ const CategoryProducts = () => {
 
               {products?.map((item, index) => {
                 return <div>
-                  <Link  state={{ productSlug: item._id}} to={`/${item?.slug}`}>
+                  <Link  state={{ productSlug: item._id}} to={`/${item?.slug}/`}>
                     <div className="">
                       <div className="  sm:h-64 h-44">
                         <img   src={`${BaseUrl}/${item?.images?.[0]?.url}`} alt={item?.images?.[0]?.altText} className=" w-full h-full  rounded-xl" />
                       </div>
-                      <h6 className="  text-center  font-medium text-[#333333]  text-lg  py-5">{item?.name}</h6>
+                      <h6 className="  text-center  font-medium text-lg  py-5">{item?.name}</h6>
                     </div>
                   </Link>
                 </div>
@@ -256,11 +307,11 @@ const CategoryProducts = () => {
 
 
           <div className=' '>
-            <div className=' text-center'>
-              <h1>Create Long-Lasting Brand Recognition by Having Perfectly Customizable Automotive Boxes
+            <div className=' text-center py-4'>
+              <h1>{categoryData?.videoUpperHeading}
               </h1>
-              <p className=' pt-3'>In a highly competing <b>Automotive products</b> market, customized Automotive box packaging helps businesses stand out. It allows them to display their personalized branding and identity. This packaging also increases product protection during shipping and allows businesses to deliver important information about their products. It creates a memorable unboxing experience, builds brand loyalty, and encourages repeat purchases. Considering these all aspects of custom packaging, here’s how Umbrella Custom Packaging can make your custom-printed Automotive packaging stand out in the industry.
-
+              <p className=' pt-3'   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(categoryData.videoUpperDescription) }}>
+                        
               </p>
             </div>
 
@@ -331,8 +382,8 @@ const CategoryProducts = () => {
               <div className="w-full  lg:w-1/2">
                 <img
                   src={`${BaseUrl}/${categoryData?.bannerImageFirst}`}
-                  alt="Custom packaging example"
-                  className="w-full h-auto rounded-xl shadow-md object-cover"
+                  alt={categoryData?.bannerImageFirstAltText}
+                  className={"w-full h-auto rounded-xl shadow-md object-cover"}
                   loading="lazy"
                 />
 
@@ -442,7 +493,7 @@ const CategoryProducts = () => {
             <div className="w-full  lg:w-1/2">
               <img
                 src={`${BaseUrl}/${categoryData?.bannerImageSecond}`}
-                alt="Custom packaging example"
+                  alt={categoryData?.bannerImageSecondAltText}
                 className="w-full h-auto rounded-xl shadow-md object-cover"
                 loading="lazy"
               />
@@ -462,7 +513,7 @@ const CategoryProducts = () => {
             <div className="w-full  lg:w-1/2">
               <img
                 src={`${BaseUrl}/${categoryData?.bannerImageThird}`}
-                alt="Custom packaging example"
+                   alt={categoryData?.bannerImageThirdAltText}
                 className="w-full h-auto rounded-xl shadow-md object-cover"
                 loading="lazy"
               />
@@ -544,7 +595,7 @@ const CategoryProducts = () => {
             <div className="w-full  lg:w-1/2">
               <img
                 src={`${BaseUrl}/${categoryData?.bannerImageFourth}`}
-                alt="Custom packaging example"
+                   alt={categoryData?.bannerImageFourthAltText}
                 className="w-full h-auto rounded-xl shadow-md object-cover"
                 loading="lazy"
               />

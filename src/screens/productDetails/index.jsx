@@ -408,6 +408,56 @@ const ProductDetails = ({
   }, [])
 
 
+   useEffect(() => {
+    if (product?.metaTitle) {
+      document.title = `${product.metaTitle}`;
+      
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = "description";
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.content = product.metaDescription 
+        ? `${product.metaDescription}`
+        : "";
+    }
+  
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.name = "keywords";
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.content = product.keywords 
+        ? `${product.keywords}`
+        : "";
+  
+        let metaRobots = document.querySelector('meta[name="robots"]');
+      if (!metaRobots) {
+        metaRobots = document.createElement('meta');
+        metaRobots.name = "robots";
+        document.head.appendChild(robots);
+      }
+      metaRobots.content = product.robots 
+        ? `noindex, nofollow`
+        : "noindex, nofollow";
+  
+       let linkCanonical = document.querySelector('link[rel="canonical"]');
+      if (!linkCanonical) {
+        linkCanonical = document.createElement('link');
+        linkCanonical.rel = "canonical";
+        document.head.appendChild(linkCanonical);
+      }
+      linkCanonical.href = product.canonicalUrl 
+        ? `${product.canonicalUrl}`
+        : window.location.href.split('?')[0]
+    
+    
+  
+  }, [product]);
+
+
   return (
     <>
       <section className='py-8'>
@@ -976,34 +1026,32 @@ const ProductDetails = ({
           <div className='absolute top-4 right-4'>
             <button
               onClick={closeImageViewer}
-              className=" text-white text-3xl hover:text-gray-300"
+              className=" text-white text-3xl cursor-pointer hover:text-gray-300"
             >
               &times;
             </button>
 
 
           </div>
-
-
-
           <button
             onClick={goToPrevious}
-            className="absolute left-4 text-white text-3xl hover:text-gray-300 p-4"
+            className="absolute left-4 text-white text-3xl  cursor-pointer hover:text-gray-300 p-4"
           >
             &#10094;
           </button>
 
-          <div className="max-w-4xl max-h-screen overflow-auto">
-            <img
-              src={selectedImage}
-              alt={`Gallery Image ${currentIndex + 1}`}
-              className="max-w-full max-h-screen object-contain"
-            />
-          </div>
+         
+    <div className="max-w-4xl max-h-screen overflow-auto">
+      <img
+        src={`${BaseUrl}/${selectedImage.url}`} 
+        alt={selectedImage.altText}
+        className="max-w-full max-h-screen object-contain"
+      />
+    </div>
 
           <button
             onClick={goToNext}
-            className="absolute right-4 text-white text-3xl hover:text-gray-300 p-4"
+            className="absolute right-4 text-white text-3xl cursor-pointer hover:text-gray-300 p-4"
           >
             &#10095;
           </button>
